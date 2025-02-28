@@ -20,7 +20,7 @@ dependencies = [
     "sparse",
     "healpy",
     "movingpandas",
-    "xarray-healpy",
+    "xarray-healpy @ git+https://github.com/iaocea/xarray-healpy.git@0ffca6058f4008f4f22f076e2d60787fcf32ac82",
     "cf_xarray",
     "healpix-convolution",
 ]
