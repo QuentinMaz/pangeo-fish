@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Install Pandoc
+        run: sudo apt-get update && sudo apt-get install -y pandoc
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -19,14 +21,14 @@ jobs:
       - name: Check imports
         run: |
           python -c "from pangeo_fish.acoustic import extract_receivers; print(extract_receivers)"
-      # - name: Sphinx build
-      #   run: |
-      #     sphinx-build docs _build --keep-going
-      # - name: Deploy to GitHub Pages
-      #   uses: peaceiris/actions-gh-pages@v3
-      #   if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/documentation-gh-pages' }}
-      #   with:
-      #     publish_branch: gh-pages
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     publish_dir: _build/
-      #     force_orphan: true
+      - name: Sphinx build
+        run: |
+          sphinx-build docs _build --keep-going
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/documentation-gh-pages' }}
+        with:
+          publish_branch: gh-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: _build/
+          force_orphan: true
