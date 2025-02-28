@@ -1,0 +1,6 @@
+﻿pangeo\_fish.hmm.decode.viterbi
+===============================
+
+.. currentmodule:: pangeo_fish.hmm.decode
+
+.. autofunction:: viterbi

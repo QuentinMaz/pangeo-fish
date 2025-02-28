@@ -1,0 +1,6 @@
+﻿pangeo\_fish.io.read\_trajectories
+==================================
+
+.. currentmodule:: pangeo_fish.io
+
+.. autofunction:: read_trajectories

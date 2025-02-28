@@ -1,0 +1,6 @@
+﻿pangeo\_fish.visualization.render\_frame
+========================================
+
+.. currentmodule:: pangeo_fish.visualization
+
+.. autofunction:: render_frame

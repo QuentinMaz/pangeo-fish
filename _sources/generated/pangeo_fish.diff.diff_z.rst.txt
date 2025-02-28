@@ -1,0 +1,6 @@
+﻿pangeo\_fish.diff.diff\_z
+=========================
+
+.. currentmodule:: pangeo_fish.diff
+
+.. autofunction:: diff_z

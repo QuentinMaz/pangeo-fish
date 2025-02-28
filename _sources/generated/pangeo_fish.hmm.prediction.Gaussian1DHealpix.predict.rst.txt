@@ -1,0 +1,6 @@
+﻿pangeo\_fish.hmm.prediction.Gaussian1DHealpix.predict
+=====================================================
+
+.. currentmodule:: pangeo_fish.hmm.prediction
+
+.. automethod:: Gaussian1DHealpix.predict

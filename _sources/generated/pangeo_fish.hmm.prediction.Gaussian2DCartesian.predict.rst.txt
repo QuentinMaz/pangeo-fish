@@ -1,0 +1,6 @@
+﻿pangeo\_fish.hmm.prediction.Gaussian2DCartesian.predict
+=======================================================
+
+.. currentmodule:: pangeo_fish.hmm.prediction
+
+.. automethod:: Gaussian2DCartesian.predict

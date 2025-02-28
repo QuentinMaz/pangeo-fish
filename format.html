@@ -1,0 +1,245 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biologging Data Specification &mdash; pangeo-fish  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Example Usage of Pangeo-Fish Software" href="notebook.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            pangeo-fish
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Biologging Data Specification</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overall-structure">Overall Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#csv-formatting">CSV formatting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#stations-csv-information-of-the-acoustic-receivers"><code class="docutils literal notranslate"><span class="pre">stations.csv</span></code>: information of the acoustic receivers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inside-a-tag-folder">Inside a tag folder</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dst-csv-dst-logs"><code class="docutils literal notranslate"><span class="pre">dst.csv</span></code>: DST logs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tagging-events-csv-lifetime-data"><code class="docutils literal notranslate"><span class="pre">tagging_events.csv</span></code>: lifetime data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#acoustic-csv-acoustic-detections"><code class="docutils literal notranslate"><span class="pre">acoustic.csv</span></code>: acoustic detections</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#metadata-json-arbitrary-metadata"><code class="docutils literal notranslate"><span class="pre">metadata.json</span></code>: arbitrary metadata</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="notebook.html"><strong>Example Usage of Pangeo-Fish Software</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pangeo-fish</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Biologging Data Specification</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/format.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="biologging-data-specification">
+<h1>Biologging Data Specification<a class="headerlink" href="#biologging-data-specification" title="Link to this heading"></a></h1>
+<p>The document describes the file structure and data format expected by <code class="docutils literal notranslate"><span class="pre">pangeo-fish</span></code> for the biologging (or “tag”) data.
+Indeed, tagging campaigns may involve different sensors, whose raw data are likely to not be dumped in a unified format.
+To account for this diversity, we have defined a standardized format that we describe below.
+We invite the user to follow along so that you can then translate your data to it.</p>
+<section id="overall-structure">
+<h2>Overall Structure<a class="headerlink" href="#overall-structure" title="Link to this heading"></a></h2>
+<p>The data repository contains one <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file detailing all the acoustic receivers involved (named <code class="docutils literal notranslate"><span class="pre">stations.csv</span></code>), and each data storage tag (DST) data is stored under a directory whose name corresponds to the tag’s identification:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>your_tag_folder
+├── A19124
+│   ├── acoustic.csv
+│   ├── dst.csv
+│   ├── tagging_events.csv
+│   └── metadata.json
+├── ...
+└── stations.csv
+</pre></div>
+</div>
+<p>As illustrated above, each tag directory must contain the DST logs (<code class="docutils literal notranslate"><span class="pre">dst.csv</span></code>) and the lifetime data (<code class="docutils literal notranslate"><span class="pre">tagging_events.csv</span></code>).
+It may also contain a file with all the acoustic detections that might have occurred (<code class="docutils literal notranslate"><span class="pre">acoustic.csv</span></code>).
+Additional metadata can be specified in a <code class="docutils literal notranslate"><span class="pre">.json</span></code> file (<code class="docutils literal notranslate"><span class="pre">metadata.json</span></code>).</p>
+</section>
+<section id="csv-formatting">
+<h2>CSV formatting<a class="headerlink" href="#csv-formatting" title="Link to this heading"></a></h2>
+<p>All CSV files must separate columns using <code class="docutils literal notranslate"><span class="pre">,</span></code> and new lines using <code class="docutils literal notranslate"><span class="pre">\n</span></code> characters.</p>
+<p>All floating point (or fixed-point) values must use <code class="docutils literal notranslate"><span class="pre">.</span></code> as a decimal separator.</p>
+<p>All time values must be given in ISO8601 format (<code class="docutils literal notranslate"><span class="pre">YYYY-MM-DDTHH:MM:SS±ZZZZ</span></code>, <code class="docutils literal notranslate"><span class="pre">YYYY-MM-DDTHH:MM:SSZ</span></code> or <code class="docutils literal notranslate"><span class="pre">YYYY-MM-DDTHH:MM:SS</span></code>).
+Furthermore, time zone-naive datetime data (i.e. without timezone information) <strong>will be assumed to be UTC</strong>.</p>
+<p>Strings containing <code class="docutils literal notranslate"><span class="pre">,</span></code> or <code class="docutils literal notranslate"><span class="pre">\n</span></code> must be wrapped in double quotes (<code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code>).</p>
+</section>
+<section id="stations-csv-information-of-the-acoustic-receivers">
+<h2><code class="docutils literal notranslate"><span class="pre">stations.csv</span></code>: information of the acoustic receivers<a class="headerlink" href="#stations-csv-information-of-the-acoustic-receivers" title="Link to this heading"></a></h2>
+<p>This file aims to encode the deployment information of the acoustic receivers.</p>
+<p>If there are no acoustic detections, it may be removed.</p>
+<p>It must contain at least eight columns:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">deployment_id</span></code> and <code class="docutils literal notranslate"><span class="pre">station_name</span></code> describe the receivers’ id and name, respectively.</p></li>
+<li><p>Deployment information in <code class="docutils literal notranslate"><span class="pre">deploy_time</span></code>, <code class="docutils literal notranslate"><span class="pre">deploy_longitude</span></code>, <code class="docutils literal notranslate"><span class="pre">deploy_latitude</span></code>.</p></li>
+<li><p>Similarly, recovry information in <code class="docutils literal notranslate"><span class="pre">recover_time</span></code>, <code class="docutils literal notranslate"><span class="pre">recover_longitude</span></code>, and <code class="docutils literal notranslate"><span class="pre">recover_latitude</span></code>.</p></li>
+</ul>
+<p>It may contain arbitrary additional columns.</p>
+<p>If the recover position is unknown or the same as the deployment position, it may be set to <code class="docutils literal notranslate"><span class="pre">NA</span></code>.</p>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">deployment_id</span><span class="p">,</span><span class="n">station_name</span><span class="p">,</span><span class="n">deploy_time</span><span class="p">,</span><span class="n">deploy_longitude</span><span class="p">,</span><span class="n">deploy_latitude</span><span class="p">,</span><span class="n">recover_time</span><span class="p">,</span><span class="n">recover_longitude</span><span class="p">,</span><span class="n">recover_latitude</span>
+<span class="mi">12345</span><span class="p">,</span><span class="n">station_1</span><span class="p">,</span><span class="mi">2022</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">13</span><span class="n">T06</span><span class="p">:</span><span class="mi">14</span><span class="p">:</span><span class="mi">00</span><span class="n">Z</span><span class="p">,</span><span class="o">-</span><span class="mf">4.12345</span><span class="p">,</span><span class="mf">49.56789</span><span class="p">,</span><span class="mi">2022</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">20</span><span class="n">T14</span><span class="p">:</span><span class="mi">07</span><span class="p">:</span><span class="mi">00</span><span class="n">Z</span><span class="p">,</span><span class="n">NA</span><span class="p">,</span><span class="n">NA</span>
+<span class="mi">12348</span><span class="p">,</span><span class="n">station_2</span><span class="p">,</span><span class="mi">2022</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">13</span><span class="n">T05</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mi">00</span><span class="n">Z</span><span class="p">,</span><span class="o">-</span><span class="mf">3.34567</span><span class="p">,</span><span class="mf">46.23456</span><span class="p">,</span><span class="mi">2022</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">20</span><span class="n">T14</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="n">Z</span><span class="p">,</span><span class="n">NA</span><span class="p">,</span><span class="n">NA</span>
+</pre></div>
+</div>
+</section>
+<section id="inside-a-tag-folder">
+<h2>Inside a tag folder<a class="headerlink" href="#inside-a-tag-folder" title="Link to this heading"></a></h2>
+<section id="dst-csv-dst-logs">
+<h3><code class="docutils literal notranslate"><span class="pre">dst.csv</span></code>: DST logs<a class="headerlink" href="#dst-csv-dst-logs" title="Link to this heading"></a></h3>
+<p>The DST logs contains the data has been measured by the DST tag.</p>
+<p>Current, <code class="docutils literal notranslate"><span class="pre">pangeo-fish</span></code> only supports temperature and pressure measurements.
+A such, the file must have three columns: <code class="docutils literal notranslate"><span class="pre">time</span></code>, <code class="docutils literal notranslate"><span class="pre">temperature</span></code>, and <code class="docutils literal notranslate"><span class="pre">pressure</span></code> (and each row encodes a data point).</p>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">time</span><span class="p">,</span><span class="n">temperature</span><span class="p">,</span><span class="n">pressure</span>
+<span class="mi">2022</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">21</span><span class="n">T12</span><span class="p">:</span><span class="mi">12</span><span class="p">:</span><span class="mi">30</span><span class="n">Z</span><span class="p">,</span><span class="mf">10.1</span><span class="p">,</span><span class="mf">14.3</span>
+<span class="mi">2022</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">01</span><span class="n">T07</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">01</span><span class="n">Z</span><span class="p">,</span><span class="mf">1.3</span><span class="p">,</span><span class="mf">17.3</span>
+</pre></div>
+</div>
+</section>
+<section id="tagging-events-csv-lifetime-data">
+<h3><code class="docutils literal notranslate"><span class="pre">tagging_events.csv</span></code>: lifetime data<a class="headerlink" href="#tagging-events-csv-lifetime-data" title="Link to this heading"></a></h3>
+<p>The lifetime data describes the start and end of the natural behavior of the fish, beginning with the release after the tagging and ending with its death/recapture.</p>
+<p>It must have four columns: <code class="docutils literal notranslate"><span class="pre">event_name</span></code>, <code class="docutils literal notranslate"><span class="pre">time</span></code>, <code class="docutils literal notranslate"><span class="pre">latitude</span></code>, and <code class="docutils literal notranslate"><span class="pre">longitude</span></code>.</p>
+<p>The valid values for <code class="docutils literal notranslate"><span class="pre">event_name</span></code> are: <code class="docutils literal notranslate"><span class="pre">release</span></code>, <code class="docutils literal notranslate"><span class="pre">recapture</span></code> and <code class="docutils literal notranslate"><span class="pre">fish_death</span></code> (more are possible but will be ignored).</p>
+<p>The file must contain two entries: <code class="docutils literal notranslate"><span class="pre">release</span></code> and one of <code class="docutils literal notranslate"><span class="pre">recapture</span></code> or <code class="docutils literal notranslate"><span class="pre">fish_death</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">latitude</span></code> and <code class="docutils literal notranslate"><span class="pre">longitude</span></code> are fixed-point representations of the position in degree, with a <code class="docutils literal notranslate"><span class="pre">.</span></code> as separator.
+<code class="docutils literal notranslate"><span class="pre">latitude</span></code> must be in a range of <code class="docutils literal notranslate"><span class="pre">-90°</span></code> to <code class="docutils literal notranslate"><span class="pre">90°</span></code>, while <code class="docutils literal notranslate"><span class="pre">longitude</span></code> may be given in either <code class="docutils literal notranslate"><span class="pre">0°</span></code> to <code class="docutils literal notranslate"><span class="pre">360°</span></code> or <code class="docutils literal notranslate"><span class="pre">-180°</span></code> to <code class="docutils literal notranslate"><span class="pre">180°</span></code>.
+If the position is unknown, both <code class="docutils literal notranslate"><span class="pre">latitude</span></code> and <code class="docutils literal notranslate"><span class="pre">longitude</span></code> must be set to <code class="docutils literal notranslate"><span class="pre">NA</span></code>.</p>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">event_name</span><span class="p">,</span><span class="n">time</span><span class="p">,</span><span class="n">latitude</span><span class="p">,</span><span class="n">longitude</span>
+<span class="n">release</span><span class="p">,</span><span class="mi">2023</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">13</span><span class="n">T13</span><span class="p">:</span><span class="mi">21</span><span class="p">:</span><span class="mi">57</span><span class="n">Z</span><span class="p">,</span><span class="mf">48.21842</span><span class="p">,</span><span class="o">-</span><span class="mf">4.08578</span>
+<span class="n">recapture</span><span class="p">,</span><span class="mi">2023</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">17</span><span class="n">T05</span><span class="p">:</span><span class="mi">21</span><span class="p">:</span><span class="mi">07</span><span class="n">Z</span><span class="p">,</span><span class="mf">47.37423</span><span class="p">,</span><span class="o">-</span><span class="mf">3.87582</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">event_name</span><span class="p">,</span><span class="n">time</span><span class="p">,</span><span class="n">latitude</span><span class="p">,</span><span class="n">longitude</span>
+<span class="n">release</span><span class="p">,</span><span class="mi">2023</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">13</span><span class="n">T13</span><span class="p">:</span><span class="mi">21</span><span class="p">:</span><span class="mi">57</span><span class="n">Z</span><span class="p">,</span><span class="mf">48.21842</span><span class="p">,</span><span class="o">-</span><span class="mf">4.08578</span>
+<span class="n">fish_death</span><span class="p">,</span><span class="mi">2023</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">17</span><span class="n">T05</span><span class="p">:</span><span class="mi">21</span><span class="p">:</span><span class="mi">07</span><span class="n">Z</span><span class="p">,</span><span class="n">NA</span><span class="p">,</span><span class="n">NA</span>
+</pre></div>
+</div>
+</section>
+<section id="acoustic-csv-acoustic-detections">
+<h3><code class="docutils literal notranslate"><span class="pre">acoustic.csv</span></code>: acoustic detections<a class="headerlink" href="#acoustic-csv-acoustic-detections" title="Link to this heading"></a></h3>
+<p>This file contains information about acoustic detections.
+If there are no acoustic detections, it may either be removed entirely or just contain the header (names of the columns).</p>
+<p>It must contain at least two columns: <code class="docutils literal notranslate"><span class="pre">deployment_id</span></code> and <code class="docutils literal notranslate"><span class="pre">time</span></code>.</p>
+<p>It may contain additional columns, such as the position of detection.</p>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">time</span><span class="p">,</span><span class="n">deployment_id</span>
+<span class="mi">2022</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">10</span><span class="n">T22</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mi">00</span><span class="n">Z</span><span class="p">,</span><span class="mi">176492</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">time</span><span class="p">,</span><span class="n">deployment_id</span><span class="p">,</span><span class="n">longitude</span><span class="p">,</span><span class="n">latitude</span>
+<span class="mi">2022</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">10</span><span class="n">T22</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mi">00</span><span class="n">Z</span><span class="p">,</span><span class="mi">176492</span><span class="p">,</span><span class="o">-</span><span class="mf">3.88402</span><span class="p">,</span><span class="mf">47.78820</span>
+<span class="mi">2022</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">10</span><span class="n">T23</span><span class="p">:</span><span class="mi">25</span><span class="p">:</span><span class="mi">31</span><span class="n">Z</span><span class="p">,</span><span class="mi">176492</span><span class="p">,</span><span class="o">-</span><span class="mf">3.68471</span><span class="p">,</span><span class="mf">47.81740</span>
+</pre></div>
+</div>
+</section>
+<section id="metadata-json-arbitrary-metadata">
+<h3><code class="docutils literal notranslate"><span class="pre">metadata.json</span></code>: arbitrary metadata<a class="headerlink" href="#metadata-json-arbitrary-metadata" title="Link to this heading"></a></h3>
+<p>This file lets you add optional metadata.</p>
+<p>It must be in JSON format and the top-level structure must be an object.
+Additionally, the keys must be strings. Any valid JSON value is however allowed.</p>
+<p>For example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;pit_tag_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A19124&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;acoustic_tag_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OPI-372&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;fish_common_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sea bass&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;tagging_campaign&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my_tagging_project&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="notebook.html" class="btn btn-neutral float-right" title="Example Usage of Pangeo-Fish Software" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023-2025, pangeo-fish developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

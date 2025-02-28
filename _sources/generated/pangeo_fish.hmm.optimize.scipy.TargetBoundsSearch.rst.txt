@@ -1,0 +1,23 @@
+﻿pangeo\_fish.hmm.optimize.scipy.TargetBoundsSearch
+==================================================
+
+.. currentmodule:: pangeo_fish.hmm.optimize.scipy
+
+.. autoclass:: TargetBoundsSearch
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~TargetBoundsSearch.__init__
+      ~TargetBoundsSearch.fit
+   
+   
+
+   
+   
+   

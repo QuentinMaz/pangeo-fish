@@ -1,0 +1,6 @@
+﻿pangeo\_fish.hmm.filter.score
+=============================
+
+.. currentmodule:: pangeo_fish.hmm.filter
+
+.. autofunction:: score

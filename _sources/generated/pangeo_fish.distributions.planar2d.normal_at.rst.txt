@@ -1,0 +1,6 @@
+﻿pangeo\_fish.distributions.planar2d.normal\_at
+==============================================
+
+.. currentmodule:: pangeo_fish.distributions.planar2d
+
+.. autofunction:: normal_at

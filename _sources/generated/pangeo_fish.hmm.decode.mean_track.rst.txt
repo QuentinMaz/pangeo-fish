@@ -1,0 +1,6 @@
+﻿pangeo\_fish.hmm.decode.mean\_track
+===================================
+
+.. currentmodule:: pangeo_fish.hmm.decode
+
+.. autofunction:: mean_track

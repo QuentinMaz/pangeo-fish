@@ -1,0 +1,6 @@
+﻿pangeo\_fish.io.save\_html\_hvplot
+==================================
+
+.. currentmodule:: pangeo_fish.io
+
+.. autofunction:: save_html_hvplot

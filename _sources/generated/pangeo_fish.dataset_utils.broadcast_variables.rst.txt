@@ -1,0 +1,6 @@
+﻿pangeo\_fish.dataset\_utils.broadcast\_variables
+================================================
+
+.. currentmodule:: pangeo_fish.dataset_utils
+
+.. autofunction:: broadcast_variables

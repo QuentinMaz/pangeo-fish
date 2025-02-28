@@ -1,0 +1,6 @@
+﻿pangeo\_fish.visualization.create\_single\_frame
+================================================
+
+.. currentmodule:: pangeo_fish.visualization
+
+.. autofunction:: create_single_frame

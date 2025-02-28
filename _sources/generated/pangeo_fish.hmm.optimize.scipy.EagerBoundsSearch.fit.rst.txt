@@ -1,0 +1,6 @@
+﻿pangeo\_fish.hmm.optimize.scipy.EagerBoundsSearch.fit
+=====================================================
+
+.. currentmodule:: pangeo_fish.hmm.optimize.scipy
+
+.. automethod:: EagerBoundsSearch.fit

@@ -1,0 +1,36 @@
+﻿pangeo\_fish.hmm.prediction.Gaussian1DHealpix
+=============================================
+
+.. currentmodule:: pangeo_fish.hmm.prediction
+
+.. autoclass:: Gaussian1DHealpix
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Gaussian1DHealpix.__init__
+      ~Gaussian1DHealpix.predict
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~Gaussian1DHealpix.kernel_size
+      ~Gaussian1DHealpix.optimize_convolution
+      ~Gaussian1DHealpix.truncate
+      ~Gaussian1DHealpix.weights_threshold
+      ~Gaussian1DHealpix.cell_ids
+      ~Gaussian1DHealpix.grid_info
+      ~Gaussian1DHealpix.sigma
+      ~Gaussian1DHealpix.pad_kwargs
+   
+   

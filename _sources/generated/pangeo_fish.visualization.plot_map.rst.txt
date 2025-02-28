@@ -1,0 +1,6 @@
+﻿pangeo\_fish.visualization.plot\_map
+====================================
+
+.. currentmodule:: pangeo_fish.visualization
+
+.. autofunction:: plot_map

@@ -1,0 +1,6 @@
+﻿pangeo\_fish.hmm.estimator.EagerEstimator.decode
+================================================
+
+.. currentmodule:: pangeo_fish.hmm.estimator
+
+.. automethod:: EagerEstimator.decode

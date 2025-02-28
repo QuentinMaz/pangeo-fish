@@ -1,0 +1,6 @@
+﻿pangeo\_fish.distributions.healpix.normal\_at
+=============================================
+
+.. currentmodule:: pangeo_fish.distributions.healpix
+
+.. autofunction:: normal_at

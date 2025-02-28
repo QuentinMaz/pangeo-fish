@@ -1,0 +1,6 @@
+﻿pangeo\_fish.hmm.estimator.CachedEstimator.set\_params
+======================================================
+
+.. currentmodule:: pangeo_fish.hmm.estimator
+
+.. automethod:: CachedEstimator.set_params

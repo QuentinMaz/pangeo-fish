@@ -1,0 +1,36 @@
+﻿pangeo\_fish.hmm.estimator.CachedEstimator
+==========================================
+
+.. currentmodule:: pangeo_fish.hmm.estimator
+
+.. autoclass:: CachedEstimator
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~CachedEstimator.__init__
+      ~CachedEstimator.decode
+      ~CachedEstimator.predict_proba
+      ~CachedEstimator.score
+      ~CachedEstimator.set_params
+      ~CachedEstimator.to_dict
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~CachedEstimator.cache
+      ~CachedEstimator.progress
+      ~CachedEstimator.sigma
+      ~CachedEstimator.predictor_factory
+   
+   

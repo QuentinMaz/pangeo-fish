@@ -1,0 +1,6 @@
+﻿pangeo\_fish.tags.reshape\_by\_bins
+===================================
+
+.. currentmodule:: pangeo_fish.tags
+
+.. autofunction:: reshape_by_bins

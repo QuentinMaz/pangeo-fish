@@ -1,0 +1,6 @@
+﻿pangeo\_fish.io.open\_tag
+=========================
+
+.. currentmodule:: pangeo_fish.io
+
+.. autofunction:: open_tag

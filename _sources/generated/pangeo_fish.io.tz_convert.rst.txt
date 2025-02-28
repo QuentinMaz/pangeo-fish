@@ -1,0 +1,6 @@
+﻿pangeo\_fish.io.tz\_convert
+===========================
+
+.. currentmodule:: pangeo_fish.io
+
+.. autofunction:: tz_convert

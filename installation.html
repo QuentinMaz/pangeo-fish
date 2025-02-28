@@ -1,0 +1,158 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Installation &mdash; pangeo-fish  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Biologging Data Specification" href="format.html" />
+    <link rel="prev" title="Welcome to pangeo-fish’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            pangeo-fish
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#for-local-use">For local use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#for-hpc-use">For HPC use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="format.html">Biologging Data Specification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebook.html"><strong>Example Usage of Pangeo-Fish Software</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pangeo-fish</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Installation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/installation.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h1>
+<p>This documentation covers the installation process of <code class="docutils literal notranslate"><span class="pre">pangeo-fish</span></code> in a virtual Python environment.</p>
+<p>In the following, we expect Conda to be installed on your Linux-based system.</p>
+<p>For Windows users, we recommend WSL (2.0).</p>
+<p>For more information, please refer to this page: <a class="reference external" href="https://gitlab.ifremer.fr/diam/Pangeo-on-Windows">pangeo on Windows</a>.</p>
+<section id="for-local-use">
+<h2>For local use<a class="headerlink" href="#for-local-use" title="Link to this heading"></a></h2>
+<p>If you are only interested in using <code class="docutils literal notranslate"><span class="pre">pangeo-fish</span></code> locally (i.e, without accessing remote data nor HPC resources), then all is needed is to create you create a virtual environment and install the package as well as its depedencies.</p>
+<p>To do so, clone the <code class="docutils literal notranslate"><span class="pre">pangeo-fish</span></code>’s repository and navigate to it:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/IAOCEA/pangeo-fish.git</span>
+<span class="go">cd pangeo-fish</span>
+</pre></div>
+</div>
+<p>Then, create a conda/mamba environment with the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">micromamba create -n pangeo-fish -f ci/requirements/environment.yaml</span>
+</pre></div>
+</div>
+<p>This will create your environment with all the required libraries to make <code class="docutils literal notranslate"><span class="pre">pangeo-fish</span></code> work.</p>
+<p>Finally, install the package itself from either its repository:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install -e .</span>
+</pre></div>
+</div>
+<p>… or from <code class="docutils literal notranslate"><span class="pre">pip</span></code>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install pangeo-fish</span>
+</pre></div>
+</div>
+</section>
+<section id="for-hpc-use">
+<h2>For HPC use<a class="headerlink" href="#for-hpc-use" title="Link to this heading"></a></h2>
+<p>This section details the additional steps to setup <code class="docutils literal notranslate"><span class="pre">pangeo-fish</span></code> for HPC use.</p>
+<p>As such, we assume the reader has access to HPC resources such as <a class="reference external" href="https://www.ifremer.fr/fr/infrastructures-de-recherche/le-supercalculateur-datarmor">Datarmor</a>.</p>
+<p><em>Please ensure to have completed the installation introduced above first!</em></p>
+<p>Install the <code class="docutils literal notranslate"><span class="pre">dask-hpcconfig</span></code> package and set the environnement as a Jupyter kernel:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install dask-hpcconfig</span>
+<span class="go">ipython kernel install --name &quot;pangeo-fish&quot; --user.</span>
+</pre></div>
+</div>
+<p>Besides, you can refer to <a class="reference external" href="https://gitlab.ifremer.fr/diam/pangeo_on_HPC">this documentation on how to use pangeo on HPC</a>.</p>
+<p>All of those steps should create a Python environment able to run the different Jupyter notebooks available.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to pangeo-fish’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="format.html" class="btn btn-neutral float-right" title="Biologging Data Specification" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023-2025, pangeo-fish developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+﻿pangeo\_fish.hmm.estimator.EagerEstimator.set\_params
+=====================================================
+
+.. currentmodule:: pangeo_fish.hmm.estimator
+
+.. automethod:: EagerEstimator.set_params

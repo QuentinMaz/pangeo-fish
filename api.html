@@ -1,0 +1,365 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Reference &mdash; pangeo-fish  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pangeo_fish.io.open_tag" href="generated/pangeo_fish.io.open_tag.html" />
+    <link rel="prev" title="Example Usage of Pangeo-Fish Software" href="notebook.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            pangeo-fish
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="format.html">Biologging Data Specification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebook.html"><strong>Example Usage of Pangeo-Fish Software</strong></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#i-o">I/O</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#re-gridding">Re-gridding</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#emission-computations">Emission Computations</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tag-time-operations">Tag/time Operations</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#visualization">Visualization</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#estimators">Estimators</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#predictors">Predictors</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#searches">Searches</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#low-level-functions">Low-level Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#distributions">Distributions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#trajectory-generation">Trajectory Generation</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#hmm-filtering">HMM Filtering</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pangeo-fish</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">API Reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading"></a></h1>
+<section id="i-o">
+<h2>I/O<a class="headerlink" href="#i-o" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pangeo_fish.io.open_tag.html#pangeo_fish.io.open_tag" title="pangeo_fish.io.open_tag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">open_tag</span></code></a>(root, name[, storage_options])</p></td>
+<td><p>open a tag</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pangeo_fish.io.open_copernicus_catalog.html#pangeo_fish.io.open_copernicus_catalog" title="pangeo_fish.io.open_copernicus_catalog"><code class="xref py py-obj docutils literal notranslate"><span class="pre">open_copernicus_catalog</span></code></a>(cat[, chunks])</p></td>
+<td><p>assemble the given intake catalog into a dataset</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pangeo_fish.io.open_copernicus_zarr.html#pangeo_fish.io.open_copernicus_zarr" title="pangeo_fish.io.open_copernicus_zarr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">open_copernicus_zarr</span></code></a>([model, format, freq, ...])</p></td>
+<td><p>Retrieve Copernicus Marine data in zarr format.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pangeo_fish.io.prepare_dataset.html#pangeo_fish.io.prepare_dataset" title="pangeo_fish.io.prepare_dataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prepare_dataset</span></code></a>(dataset[, chunks, bbox, names])</p></td>
+<td><p>Prepares a dataset of a reference model.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pangeo_fish.io.save_trajectories.html#pangeo_fish.io.save_trajectories" title="pangeo_fish.io.save_trajectories"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_trajectories</span></code></a>(traj, root[, ...])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pangeo_fish.io.read_trajectories.html#pangeo_fish.io.read_trajectories" title="pangeo_fish.io.read_trajectories"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_trajectories</span></code></a>(names, root[, ...])</p></td>
+<td><p>read trajectories from disk</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pangeo_fish.io.save_html_hvplot.html#pangeo_fish.io.save_html_hvplot" title="pangeo_fish.io.save_html_hvplot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_html_hvplot</span></code></a>(plot, filepath[, ...])</p></td>
+<td><p>save a Holoviews plot to an HTML file either locally or on an S3 bucket.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pangeo_fish.io.tz_convert.html#pangeo_fish.io.tz_convert" title="pangeo_fish.io.tz_convert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tz_convert</span></code></a>(df, timezones)</p></td>
+<td><p>Convert the timezone of columns in a dataframe</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="re-gridding">
+<h2>Re-gridding<a class="headerlink" href="#re-gridding" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pangeo_fish.grid.center_longitude.html#pangeo_fish.grid.center_longitude" title="pangeo_fish.grid.center_longitude"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grid.center_longitude</span></code></a>(ds, center)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pangeo_fish.healpy.geographic_to_astronomic.html#pangeo_fish.healpy.geographic_to_astronomic" title="pangeo_fish.healpy.geographic_to_astronomic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">healpy.geographic_to_astronomic</span></code></a>(lat, lon, rot)</p></td>
+<td><p>transform geographic coordinates to astronomic coordinates</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pangeo_fish.healpy.astronomic_to_cartesian.html#pangeo_fish.healpy.astronomic_to_cartesian" title="pangeo_fish.healpy.astronomic_to_cartesian"><code class="xref py py-obj docutils literal notranslate"><span class="pre">healpy.astronomic_to_cartesian</span></code></a>(theta, phi[, dim])</p></td>
+<td><p>transform astronomic coordinates to cartesian coordinates</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pangeo_fish.healpy.astronomic_to_cell_ids.html#pangeo_fish.healpy.astronomic_to_cell_ids" title="pangeo_fish.healpy.astronomic_to_cell_ids"><code class="xref py py-obj docutils literal notranslate"><span class="pre">healpy.astronomic_to_cell_ids</span></code></a>(nside, phi, theta)</p></td>
+<td><p>Compute cell ids from astronomic coordinates</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pangeo_fish.healpy.buffer_points.html#pangeo_fish.healpy.buffer_points" title="pangeo_fish.healpy.buffer_points"><code class="xref py py-obj docutils literal notranslate"><span class="pre">healpy.buffer_points</span></code></a>(cell_ids, positions, *, ...)</p></td>
+<td><p>select the cells within a circular buffer around the given positions</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="emission-computations">
+<h2>Emission Computations<a class="headerlink" href="#emission-computations" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pangeo_fish.acoustic.emission_probability.html#pangeo_fish.acoustic.emission_probability" title="pangeo_fish.acoustic.emission_probability"><code class="xref py py-obj docutils literal notranslate"><span class="pre">acoustic.emission_probability</span></code></a>(tag, grid, ...)</p></td>
+<td><p>construct emission probability maps from acoustic detections</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pangeo_fish.pdf.normal.html#pangeo_fish.pdf.normal" title="pangeo_fish.pdf.normal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pdf.normal</span></code></a>(samples, mean, std, *, dims)</p></td>
+<td><p>compute the combined pdf of independent layers</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pangeo_fish.pdf.combine_emission_pdf.html#pangeo_fish.pdf.combine_emission_pdf" title="pangeo_fish.pdf.combine_emission_pdf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pdf.combine_emission_pdf</span></code></a>(raw[, exclude])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pangeo_fish.diff.diff_z.html#pangeo_fish.diff.diff_z" title="pangeo_fish.diff.diff_z"><code class="xref py py-obj docutils literal notranslate"><span class="pre">diff.diff_z</span></code></a>(model, tag[, depth_threshold])</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tag-time-operations">
+<h2>Tag/time Operations<a class="headerlink" href="#tag-time-operations" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pangeo_fish.tags.to_time_slice.html#pangeo_fish.tags.to_time_slice" title="pangeo_fish.tags.to_time_slice"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tags.to_time_slice</span></code></a>(times)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pangeo_fish.tags.adapt_model_time.html#pangeo_fish.tags.adapt_model_time" title="pangeo_fish.tags.adapt_model_time"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tags.adapt_model_time</span></code></a>(slice_)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pangeo_fish.tags.reshape_by_bins.html#pangeo_fish.tags.reshape_by_bins" title="pangeo_fish.tags.reshape_by_bins"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tags.reshape_by_bins</span></code></a>(ds, *, dim, bins[, ...])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pangeo_fish.cf.bounds_to_bins.html#pangeo_fish.cf.bounds_to_bins" title="pangeo_fish.cf.bounds_to_bins"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cf.bounds_to_bins</span></code></a>(ds[, bounds_dim])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pangeo_fish.dataset_utils.broadcast_variables.html#pangeo_fish.dataset_utils.broadcast_variables" title="pangeo_fish.dataset_utils.broadcast_variables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dataset_utils.broadcast_variables</span></code></a>(ds, ...)</p></td>
+<td><p>broadcast variables against each other</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="visualization">
+<h2>Visualization<a class="headerlink" href="#visualization" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pangeo_fish.visualization.create_single_frame.html#pangeo_fish.visualization.create_single_frame" title="pangeo_fish.visualization.create_single_frame"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_single_frame</span></code></a>(ds, figure, **kwargs)</p></td>
+<td><p>Default function for plotting a snapshot (i.e, <strong>timeless</strong> data) of the <cite>emission</cite> and <cite>states</cite> distributions.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pangeo_fish.visualization.render_frame.html#pangeo_fish.visualization.render_frame" title="pangeo_fish.visualization.render_frame"><code class="xref py py-obj docutils literal notranslate"><span class="pre">render_frame</span></code></a>(ds, *args[, figsize, frames_dir])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pangeo_fish.visualization.plot_map.html#pangeo_fish.visualization.plot_map" title="pangeo_fish.visualization.plot_map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_map</span></code></a>(arr, bbox[, x, y, rasterize, geo, ...])</p></td>
+<td><p>wrapper around <cite>DataArray.hvplot.quadmesh</cite>, with different defaults</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pangeo_fish.visualization.plot_trajectories.html#pangeo_fish.visualization.plot_trajectories" title="pangeo_fish.visualization.plot_trajectories"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_trajectories</span></code></a>(trajectories, *[, subplots])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pangeo_fish.visualization.filter_by_states.html#pangeo_fish.visualization.filter_by_states" title="pangeo_fish.visualization.filter_by_states"><code class="xref py py-obj docutils literal notranslate"><span class="pre">filter_by_states</span></code></a>(ds)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="estimators">
+<h2>Estimators<a class="headerlink" href="#estimators" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pangeo_fish.hmm.estimator.EagerEstimator.html#pangeo_fish.hmm.estimator.EagerEstimator" title="pangeo_fish.hmm.estimator.EagerEstimator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EagerEstimator</span></code></a>(predictor_factory[, sigma])</p></td>
+<td><p>Estimator to train and predict gaussian random walk hidden markov models</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pangeo_fish.hmm.estimator.CachedEstimator.html#pangeo_fish.hmm.estimator.CachedEstimator" title="pangeo_fish.hmm.estimator.CachedEstimator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CachedEstimator</span></code></a>(predictor_factory[, sigma, ...])</p></td>
+<td><p>Estimator to train and predict gaussian random walk hidden markov models</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="predictors">
+<h2>Predictors<a class="headerlink" href="#predictors" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pangeo_fish.hmm.prediction.Gaussian2DCartesian.html#pangeo_fish.hmm.prediction.Gaussian2DCartesian" title="pangeo_fish.hmm.prediction.Gaussian2DCartesian"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Gaussian2DCartesian</span></code></a>(sigma, truncate, ...)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pangeo_fish.hmm.prediction.Gaussian1DHealpix.html#pangeo_fish.hmm.prediction.Gaussian1DHealpix" title="pangeo_fish.hmm.prediction.Gaussian1DHealpix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Gaussian1DHealpix</span></code></a>(cell_ids, grid_info, ...)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="searches">
+<h2>Searches<a class="headerlink" href="#searches" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pangeo_fish.hmm.optimize.scipy.GridSearch.html#pangeo_fish.hmm.optimize.scipy.GridSearch" title="pangeo_fish.hmm.optimize.scipy.GridSearch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GridSearch</span></code></a>(estimator, search_grid)</p></td>
+<td><p>Optimize estimator parameters using a search grid</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pangeo_fish.hmm.optimize.scipy.EagerBoundsSearch.html#pangeo_fish.hmm.optimize.scipy.EagerBoundsSearch" title="pangeo_fish.hmm.optimize.scipy.EagerBoundsSearch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EagerBoundsSearch</span></code></a>(estimator, param_bounds, *)</p></td>
+<td><p>Optimize estimator parameters within an interval</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pangeo_fish.hmm.optimize.scipy.TargetBoundsSearch.html#pangeo_fish.hmm.optimize.scipy.TargetBoundsSearch" title="pangeo_fish.hmm.optimize.scipy.TargetBoundsSearch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TargetBoundsSearch</span></code></a>(estimator, x0, ...[, ...])</p></td>
+<td><p>Optimize estimator parameters within an interval</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="low-level-functions">
+<h2>Low-level Functions<a class="headerlink" href="#low-level-functions" title="Link to this heading"></a></h2>
+<section id="distributions">
+<h3>Distributions<a class="headerlink" href="#distributions" title="Link to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pangeo_fish.distributions.planar2d.create_covariances.html#pangeo_fish.distributions.planar2d.create_covariances" title="pangeo_fish.distributions.planar2d.create_covariances"><code class="xref py py-obj docutils literal notranslate"><span class="pre">planar2d.create_covariances</span></code></a>(cov, coord_names)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pangeo_fish.distributions.planar2d.normal_at.html#pangeo_fish.distributions.planar2d.normal_at" title="pangeo_fish.distributions.planar2d.normal_at"><code class="xref py py-obj docutils literal notranslate"><span class="pre">planar2d.normal_at</span></code></a>(grid, *, pos, cov[, ...])</p></td>
+<td><p>multivariate normal distribution</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pangeo_fish.distributions.healpix.normal_at.html#pangeo_fish.distributions.healpix.normal_at" title="pangeo_fish.distributions.healpix.normal_at"><code class="xref py py-obj docutils literal notranslate"><span class="pre">healpix.normal_at</span></code></a>(grid, pos, sigma)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="trajectory-generation">
+<h3>Trajectory Generation<a class="headerlink" href="#trajectory-generation" title="Link to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pangeo_fish.hmm.decode.mean_track.html#pangeo_fish.hmm.decode.mean_track" title="pangeo_fish.hmm.decode.mean_track"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mean_track</span></code></a>(X[, coords])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pangeo_fish.hmm.decode.modal_track.html#pangeo_fish.hmm.decode.modal_track" title="pangeo_fish.hmm.decode.modal_track"><code class="xref py py-obj docutils literal notranslate"><span class="pre">modal_track</span></code></a>(X[, coords])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pangeo_fish.hmm.decode.viterbi.html#pangeo_fish.hmm.decode.viterbi" title="pangeo_fish.hmm.decode.viterbi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">viterbi</span></code></a>(emission, sigma)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="hmm-filtering">
+<h3>HMM Filtering<a class="headerlink" href="#hmm-filtering" title="Link to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pangeo_fish.hmm.filter.score.html#pangeo_fish.hmm.filter.score" title="pangeo_fish.hmm.filter.score"><code class="xref py py-obj docutils literal notranslate"><span class="pre">score</span></code></a>(emission, predictor, initial_probability)</p></td>
+<td><p>score of a single pass (forwards) of the spatial HMM filter</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pangeo_fish.hmm.filter.forward.html#pangeo_fish.hmm.filter.forward" title="pangeo_fish.hmm.filter.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>(emission, predictor, initial_probability)</p></td>
+<td><p>single pass (forwards) of the spatial HMM filter</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pangeo_fish.hmm.filter.backward.html#pangeo_fish.hmm.filter.backward" title="pangeo_fish.hmm.filter.backward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">backward</span></code></a>(states, predictions, predictor[, mask])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pangeo_fish.hmm.filter.forward_backward.html#pangeo_fish.hmm.filter.forward_backward" title="pangeo_fish.hmm.filter.forward_backward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward_backward</span></code></a>(emission, predictor, ...[, ...])</p></td>
+<td><p>double pass (forwards and backwards) of the spatial HMM filter</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="notebook.html" class="btn btn-neutral float-left" title="Example Usage of Pangeo-Fish Software" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="generated/pangeo_fish.io.open_tag.html" class="btn btn-neutral float-right" title="pangeo_fish.io.open_tag" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023-2025, pangeo-fish developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

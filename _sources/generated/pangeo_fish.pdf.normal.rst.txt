@@ -1,0 +1,6 @@
+﻿pangeo\_fish.pdf.normal
+=======================
+
+.. currentmodule:: pangeo_fish.pdf
+
+.. autofunction:: normal

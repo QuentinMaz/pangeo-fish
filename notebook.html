@@ -1,0 +1,1263 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Example Usage of Pangeo-Fish Software &mdash; pangeo-fish  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/nbsphinx-code-cells.css?v=2aa19091" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="api.html" />
+    <link rel="prev" title="Biologging Data Specification" href="format.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            pangeo-fish
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="format.html">Biologging Data Specification</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><strong>Example Usage of Pangeo-Fish Software</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#1.-Configure-the-Notebook:-Prepare-the-notebook-environment-for-analysis.">1. <strong>Configure the Notebook:</strong> Prepare the notebook environment for analysis.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#2.-Compare-Reference-Model-with-DST-Tag-Information:-Analyze-and-compare-data-from-the-reference-model-with-information-from-the-biologging-data-of-the-species-in-question.">2. <strong>Compare Reference Model with DST Tag Information:</strong> Analyze and compare data from the reference model with information from the biologging data of the species in question.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#3.-Regrid-the-Grid-from-Reference-Model-Grid-to-Healpix-Grid:-Transform-the-grid-from-the-reference-model-to-the-Healpix-grid-for-further-analysis.">3. <strong>Regrid the Grid from Reference Model Grid to Healpix Grid:</strong> Transform the grid from the reference model to the Healpix grid for further analysis.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#4.-Construct-Emission-Matrix:-Create-an-emission-matrix-based-on-the-transformed-grid.">4. <strong>Construct Emission Matrix:</strong> Create an emission matrix based on the transformed grid.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#5.-Compute-Additional-Emission-Probability-Matrix:-Calculate-an-additional-emission-probability-matrix,-particularly-focusing-on-teledetection-from-acoustic-signals.">5. <strong>Compute Additional Emission Probability Matrix:</strong> Calculate an additional emission probability matrix, particularly focusing on teledetection from acoustic signals.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#6.-Combine-and-Normalize-Emission-Matrix:-Merge-the-emission-matrix-and-normalize-it-for-further-processing.">6. <strong>Combine and Normalize Emission Matrix:</strong> Merge the emission matrix and normalize it for further processing.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#7.-Estimate-Model-Parameters:-Determine-the-parameters-of-the-model-based-on-the-normalized-emission-matrix.">7. <strong>Estimate Model Parameters:</strong> Determine the parameters of the model based on the normalized emission matrix.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#8.-Compute-State-Probabilities-and-Tracks:-Calculate-the-probability-distribution-of-the-species-in-question-and-compute-the-tracks.">8. <strong>Compute State Probabilities and Tracks:</strong> Calculate the probability distribution of the species in question and compute the tracks.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#9.-Visualization:-Visualize-the-results-of-the-analysis-for-interpretation-and-insight.">9. <strong>Visualization:</strong> Visualize the results of the analysis for interpretation and insight.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pangeo-fish</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><strong>Example Usage of Pangeo-Fish Software</strong></li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/notebook.nblink.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Example-Usage-of-Pangeo-Fish-Software">
+<h1><strong>Example Usage of Pangeo-Fish Software</strong><a class="headerlink" href="#Example-Usage-of-Pangeo-Fish-Software" title="Link to this heading"></a></h1>
+<p><strong>Overview:</strong> This Jupyter notebook demonstrates the usage of the Pangeo-Fish software, a tool designed for analyzing biologging data in reference to Earth Observation (EO) data. Specifically, it utilizes data employed in the study conducted by M. Gonze et al. titled “Combining acoustic telemetry with archival tagging to investigate the spatial dynamics of the understudied pollack <em>Pollachius pollachius</em>,” accepted for publication in the Journal of Fish Biology.</p>
+<p>We showcase the application using the biologging tag ‘A19124’ attached to a pollack fish, along with reference EO data from the European Union Copernicus Marine Service Information (CMEMS) product ‘NORTHWESTSHELF_ANALYSIS_FORECAST_PHY_004_013’. The biologging data consist of Data Storage Tag (DST) and teledetection by acoustic signals, along with release and recapture time and location of the species in question. Both biologging data and the reference EO data are accessible with https and the
+access methods are incropolated in this notebook.</p>
+<p><strong>Purpose:</strong> By executing this notebook, users will learn how to set up a workflow for utilizing the Pangeo-Fish software. The workflow consists of 9 steps which are described below:</p>
+<ol class="arabic simple">
+<li><p><strong>Configure the Notebook:</strong> Prepare the notebook environment for analysis.</p></li>
+<li><p><strong>Compare Reference Model with DST Information:</strong> Analyze and compare data from the reference model with information from the biologging data of the species in question.</p></li>
+<li><p><strong>Regrid the Grid from Reference Model Grid to Healpix Grid:</strong> Transform the grid from the reference model to the Healpix grid for further analysis.</p></li>
+<li><p><strong>Construct Emission Matrix:</strong> Create an emission matrix based on the transformed grid.</p></li>
+<li><p><strong>Compute Additional Emission Probability Matrix:</strong> Calculate an additional emission probability matrix, particularly focusing on teledetection from acoustic signals.</p></li>
+<li><p><strong>Combine and Normalize Emission Matrix:</strong> Merge the emission matrix and normalize it for further processing.</p></li>
+<li><p><strong>Estimate Model Parameters:</strong> Determine the parameters of the model based on the normalized emission matrix.</p></li>
+<li><p><strong>Compute State Probabilities and Tracks:</strong> Calculate the probability distribution of the species in question and compute the tracks.</p></li>
+<li><p><strong>Visualization:</strong> Visualize the results of the analysis for interpretation and insight.</p></li>
+</ol>
+<p>Throughout this notebook, users will gain practical experience in setting up and executing a workflow using Pangeo-Fish, enabling them to apply similar methodologies to their own biologging data analysis tasks.</p>
+<section id="1.-Configure-the-Notebook:-Prepare-the-notebook-environment-for-analysis.">
+<h2>1. <strong>Configure the Notebook:</strong> Prepare the notebook environment for analysis.<a class="headerlink" href="#1.-Configure-the-Notebook:-Prepare-the-notebook-environment-for-analysis." title="Link to this heading"></a></h2>
+<p>In this step, we sets up the notebook environment for analysis. It includes installing necessary packages, importing required libraries, setting up parameters, and configuring the cluster for distributed computing. It also retrieves the tag data needed for analysis.</p>
+# Run the following 3 lines of command to install pangeo-fish in the pangeo environment.
+# Note: These commands install required packages for the analysis.
+# You may need to restart your kernel before executing the next cell.
+#
+!pip install rich zstandard xmovie
+!pip install "xarray-healpy @ git+https://github.com/iaocea/xarray-healpy.git@0ffca6058f4008f4f22f076e2d60787fcf32ac82"
+!pip install -e ../.<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import necessary libraries and modules.</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pint_xarray</span><span class="w"> </span><span class="kn">import</span> <span class="n">unit_registry</span> <span class="k">as</span> <span class="n">ureg</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pangeo_fish.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">open_tag</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+<span class="c1"># Set up execution parameters for the analysis.</span>
+<span class="c1">#</span>
+<span class="c1"># Note: This cell is tagged as parameters, allowing automatic updates when configuring with papermil.</span>
+
+<span class="c1"># tag_name corresponds to the name of the biologging tag name (DST identification number),</span>
+<span class="c1"># which is also a path for storing all the information for the specific fish tagged with tag_name.</span>
+<span class="n">tag_name</span> <span class="o">=</span> <span class="s2">&quot;A19124&quot;</span>
+
+<span class="c1"># tag_root specifies the root URL for tag data used for this computation.</span>
+<span class="n">tag_root</span> <span class="o">=</span> <span class="s2">&quot;https://data-taos.ifremer.fr/data_tmp/cleaned/tag/&quot;</span>
+
+<span class="c1"># catalog_url specifies the URL for the catalog for reference data used.</span>
+<span class="n">catalog_url</span> <span class="o">=</span> <span class="s2">&quot;https://data-taos.ifremer.fr/kerchunk/ref-copernicus.yaml&quot;</span>
+<span class="n">open_catalog</span> <span class="o">=</span> <span class="kc">True</span>
+
+
+<span class="c1"># scratch_root specifies the root directory for storing output files.</span>
+<span class="n">scratch_root</span> <span class="o">=</span> <span class="s2">&quot;s3://destine-gfts-data-lake/demo&quot;</span>
+
+<span class="c1"># storage_options specifies options for the filesystem storing output files.</span>
+<span class="n">storage_options</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;anon&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s2">&quot;profile&quot;</span><span class="p">:</span> <span class="s2">&quot;gfts&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;client_kwargs&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;endpoint_url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://s3.gra.perf.cloud.ovh.net&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;region_name&quot;</span><span class="p">:</span> <span class="s2">&quot;gra&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+
+<span class="c1"># if you are using local file system, activate following two lines</span>
+<span class="n">scratch_root</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span>
+<span class="n">storage_options</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="c1"># Default chunk value for time dimension.  This values depends on the configuration of your dask cluster.</span>
+<span class="n">chunk_time</span> <span class="o">=</span> <span class="mi">24</span>
+
+<span class="c1">#</span>
+<span class="c1"># Parameters for step 2. **Compare Reference Model with DST Information:**</span>
+<span class="c1">#</span>
+<span class="c1"># bbox, bounding box, defines the latitude and longitude range for the analysis area.</span>
+<span class="n">bbox</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;latitude&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">46</span><span class="p">,</span> <span class="mi">51</span><span class="p">],</span> <span class="s2">&quot;longitude&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]}</span>
+
+<span class="c1"># relative_depth_threshold defines the acceptable fish depth relative to the maximum tag depth.</span>
+<span class="c1"># It determines whether the fish can be considered to be in a certain location based on depth.</span>
+<span class="n">relative_depth_threshold</span> <span class="o">=</span> <span class="mf">0.8</span>
+
+<span class="c1">#</span>
+<span class="c1"># Parameters for step 3. **Regrid the Grid from Reference Model Grid to Healpix Grid:**</span>
+<span class="c1">#</span>
+<span class="c1"># nside defines the resolution of the healpix grid used for regridding.</span>
+<span class="n">nside</span> <span class="o">=</span> <span class="mi">4096</span>  <span class="c1"># *2</span>
+
+<span class="c1"># min_vertices sets the minimum number of vertices for a valid transcription for regridding.</span>
+<span class="n">min_vertices</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1">#</span>
+<span class="c1"># Parameters for step 4. **Construct Emission Matrix:**</span>
+<span class="c1">#</span>
+<span class="c1"># differences_std sets the standard deviation for scipy.stats.norm.pdf.</span>
+<span class="c1"># It expresses the estimated certainty of the field of difference.</span>
+<span class="n">differences_std</span> <span class="o">=</span> <span class="mf">0.75</span>
+
+<span class="c1"># recapture_std sets the covariance for recapture event.</span>
+<span class="c1"># It shows the certainty of the final recapture area if it is known.</span>
+<span class="n">recapture_std</span> <span class="o">=</span> <span class="mf">1e-2</span>
+
+<span class="c1"># earth_radius defines the radius of the Earth used for distance calculations.</span>
+<span class="n">earth_radius</span> <span class="o">=</span> <span class="n">ureg</span><span class="o">.</span><span class="n">Quantity</span><span class="p">(</span><span class="mi">6371</span><span class="p">,</span> <span class="s2">&quot;km&quot;</span><span class="p">)</span>
+
+<span class="c1"># maximum_speed sets the maximum allowable speed for the tagged fish.</span>
+<span class="n">maximum_speed</span> <span class="o">=</span> <span class="n">ureg</span><span class="o">.</span><span class="n">Quantity</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="s2">&quot;km / day&quot;</span><span class="p">)</span>
+
+<span class="c1"># adjustment_factor adjusts parameters for a more fuzzy search.</span>
+<span class="c1"># It will factor the allowed maximum displacement of the fish.</span>
+<span class="n">adjustment_factor</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="c1"># truncate sets the truncating factor for computed maximum allowed sigma for convolution process.</span>
+<span class="n">truncate</span> <span class="o">=</span> <span class="mi">4</span>
+
+<span class="c1">#</span>
+<span class="c1"># Parameters for step 5. **Compute Additional Emission Probability Matrix:**</span>
+<span class="c1">#</span>
+<span class="c1"># receiver_buffer sets the maximum allowed detection distance for acoustic receivers.</span>
+<span class="n">receiver_buffer</span> <span class="o">=</span> <span class="n">ureg</span><span class="o">.</span><span class="n">Quantity</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="s2">&quot;m&quot;</span><span class="p">)</span>
+
+<span class="c1">#</span>
+<span class="c1"># Parameters for step 7. **Estimate Model Parameters:**</span>
+<span class="c1">#</span>
+<span class="c1"># tolerance sets the tolerance level for optimised parameter serarch computation.</span>
+<span class="n">tolerance</span> <span class="o">=</span> <span class="mf">1e-6</span>
+
+<span class="c1">#</span>
+<span class="c1"># Parameters for step 8. **Compute State Probabilities and Tracks:**</span>
+<span class="c1">#</span>
+<span class="c1"># track_modes defines the modes for track calculation.</span>
+<span class="n">track_modes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="s2">&quot;mode&quot;</span><span class="p">]</span>
+
+<span class="c1"># additional_track_quantities sets quantities to compute for tracks using moving pandas.</span>
+<span class="n">additional_track_quantities</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;speed&quot;</span><span class="p">,</span> <span class="s2">&quot;distance&quot;</span><span class="p">]</span>
+
+
+<span class="c1">#</span>
+<span class="c1"># Parameters for step 9. **Visualization:**</span>
+<span class="c1">#</span>
+<span class="c1"># time_step defines for each time_step value we make movie of state and emission matrix</span>
+<span class="n">time_step</span> <span class="o">=</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define target root directories for storing analysis results.</span>
+<span class="n">target_root</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">scratch_root</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">tag_name</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="c1"># Defines default chunk size for optimisation.</span>
+<span class="n">default_chunk</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">chunk_time</span><span class="p">,</span> <span class="s2">&quot;lat&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;lon&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">}</span>
+<span class="n">default_chunk_xy</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">chunk_time</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">}</span>
+<span class="n">default_chunk_cells</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">chunk_time</span><span class="p">,</span> <span class="s2">&quot;cells&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set up a local cluster for distributed computing.</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">distributed</span><span class="w"> </span><span class="kn">import</span> <span class="n">LocalCluster</span>
+
+<span class="n">cluster</span> <span class="o">=</span> <span class="n">LocalCluster</span><span class="p">()</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">get_client</span><span class="p">()</span>
+<span class="n">client</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tag_root</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Open and retrieve the tag data required for the analysis</span>
+<span class="n">tag</span> <span class="o">=</span> <span class="n">open_tag</span><span class="p">(</span><span class="n">tag_root</span><span class="p">,</span> <span class="n">tag_name</span><span class="p">)</span>
+<span class="n">tag</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="2.-Compare-Reference-Model-with-DST-Tag-Information:-Analyze-and-compare-data-from-the-reference-model-with-information-from-the-biologging-data-of-the-species-in-question.">
+<h2>2. <strong>Compare Reference Model with DST Tag Information:</strong> Analyze and compare data from the reference model with information from the biologging data of the species in question.<a class="headerlink" href="#2.-Compare-Reference-Model-with-DST-Tag-Information:-Analyze-and-compare-data-from-the-reference-model-with-information-from-the-biologging-data-of-the-species-in-question." title="Link to this heading"></a></h2>
+<p>In this step, we compare the reference model data with Data Storage Tag information. The process involves reading and cleaning the reference model, aligning time, converting depth units, subtracting tag data from the model, and saving the results.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import necessary libraries</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">intake</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pangeo_fish.cf</span><span class="w"> </span><span class="kn">import</span> <span class="n">bounds_to_bins</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pangeo_fish.diff</span><span class="w"> </span><span class="kn">import</span> <span class="n">diff_z</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pangeo_fish.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">open_copernicus_catalog</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pangeo_fish.tags</span><span class="w"> </span><span class="kn">import</span> <span class="n">adapt_model_time</span><span class="p">,</span> <span class="n">reshape_by_bins</span><span class="p">,</span> <span class="n">to_time_slice</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Drop tag data outside the tagged events interval</span>
+<span class="n">time_slice</span> <span class="o">=</span> <span class="n">to_time_slice</span><span class="p">(</span><span class="n">tag</span><span class="p">[</span><span class="s2">&quot;tagging_events/time&quot;</span><span class="p">])</span>
+<span class="n">tag_log</span> <span class="o">=</span> <span class="n">tag</span><span class="p">[</span><span class="s2">&quot;dst&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">time_slice</span><span class="p">)</span>
+
+<span class="c1"># Verify the data</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">hvplot.xarray</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cmocean</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pangeo_fish.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">save_html_hvplot</span>
+
+<span class="n">plot</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="o">-</span><span class="n">tag</span><span class="p">[</span><span class="s2">&quot;dst&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">pressure</span><span class="p">)</span><span class="o">.</span><span class="n">hvplot</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+    <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">tag_log</span><span class="p">)</span><span class="o">.</span><span class="n">hvplot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;pressure&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">500</span>
+    <span class="p">)</span>
+    <span class="o">*</span> <span class="p">(</span>
+        <span class="p">(</span><span class="n">tag</span><span class="p">[</span><span class="s2">&quot;dst&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">temperature</span><span class="p">)</span><span class="o">.</span><span class="n">hvplot</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+        <span class="o">*</span> <span class="p">(</span><span class="n">tag_log</span><span class="p">)</span><span class="o">.</span><span class="n">hvplot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;temperature&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">500</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+<span class="n">filepath</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target_root</span><span class="si">}</span><span class="s2">/tags.html&quot;</span>
+
+<span class="n">save_html_hvplot</span><span class="p">(</span><span class="n">plot</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">storage_options</span><span class="p">)</span>
+
+<span class="n">plot</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Open and clean reference model</span>
+<span class="k">if</span> <span class="n">open_catalog</span><span class="p">:</span>
+    <span class="n">cat</span> <span class="o">=</span> <span class="n">intake</span><span class="o">.</span><span class="n">open_catalog</span><span class="p">(</span><span class="n">catalog_url</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">open_copernicus_catalog</span><span class="p">(</span><span class="n">cat</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pangeo_fish.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">open_copernicus_zarr</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">open_copernicus_zarr</span><span class="p">(</span>
+        <span class="c1"># model=&#39;GLOBAL_ANALYSISFORECAST_PHY_001_024&#39;,</span>
+        <span class="c1"># freq=&quot;D&quot;,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Subset the reference_model by</span>
+<span class="c1"># - align model time with the time of tag_log, also</span>
+<span class="c1"># - drop data for depth later that are unlikely due to the observed pressure from tag_log</span>
+<span class="c1"># - defined latitude and longitude of bbox.</span>
+<span class="c1">#</span>
+<span class="n">reference_model</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">adapt_model_time</span><span class="p">(</span><span class="n">time_slice</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="o">*</span><span class="n">bbox</span><span class="p">[</span><span class="s2">&quot;latitude&quot;</span><span class="p">]),</span> <span class="n">lon</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="o">*</span><span class="n">bbox</span><span class="p">[</span><span class="s2">&quot;longitude&quot;</span><span class="p">]))</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">ds</span><span class="p">:</span> <span class="n">ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span>
+            <span class="n">depth</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="p">(</span><span class="n">tag_log</span><span class="p">[</span><span class="s2">&quot;pressure&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">ds</span><span class="p">[</span><span class="s2">&quot;XE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span><span class="o">.</span><span class="n">compute</span><span class="p">())</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span><span class="o">.</span><span class="n">chunk</span><span class="p">({</span><span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">chunk_time</span><span class="p">,</span> <span class="s2">&quot;lat&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;lon&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;depth&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">})</span>
+<span class="n">reference_model</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="c1"># Reshape the tag log, so that it bins to the time step of reference_model</span>
+<span class="n">reshaped_tag</span> <span class="o">=</span> <span class="n">reshape_by_bins</span><span class="p">(</span>
+    <span class="n">tag_log</span><span class="p">,</span>
+    <span class="n">dim</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">,</span>
+    <span class="n">bins</span><span class="o">=</span><span class="p">(</span>
+        <span class="n">reference_model</span><span class="o">.</span><span class="n">cf</span><span class="o">.</span><span class="n">add_bounds</span><span class="p">([</span><span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">output_dim</span><span class="o">=</span><span class="s2">&quot;bounds&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">bounds_to_bins</span><span class="p">,</span> <span class="n">bounds_dim</span><span class="o">=</span><span class="s2">&quot;bounds&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;time_bins&quot;</span><span class="p">)</span>
+    <span class="p">),</span>
+    <span class="n">bin_dim</span><span class="o">=</span><span class="s2">&quot;bincount&quot;</span><span class="p">,</span>
+    <span class="n">other_dim</span><span class="o">=</span><span class="s2">&quot;obs&quot;</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">chunk</span><span class="p">({</span><span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">chunk_time</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Subtract the time_bined tag_log from the reference_model.</span>
+<span class="c1"># Here, for each time_bin, each observed value are compared with the correspoindng depth of reference_model using diff_z function.</span>
+<span class="c1">#</span>
+<span class="n">diff</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">diff_z</span><span class="p">(</span><span class="n">reference_model</span><span class="p">,</span> <span class="n">reshaped_tag</span><span class="p">,</span> <span class="n">depth_threshold</span><span class="o">=</span><span class="n">relative_depth_threshold</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">assign_attrs</span><span class="p">({</span><span class="s2">&quot;tag_id&quot;</span><span class="p">:</span> <span class="n">tag_name</span><span class="p">})</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;H0&quot;</span><span class="p">:</span> <span class="n">reference_model</span><span class="p">[</span><span class="s2">&quot;H0&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;ocean_mask&quot;</span><span class="p">:</span> <span class="n">reference_model</span><span class="p">[</span><span class="s2">&quot;H0&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">(),</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1"># Persist the diff data</span>
+<span class="n">diff</span> <span class="o">=</span> <span class="n">diff</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="n">default_chunk</span><span class="p">)</span><span class="o">.</span><span class="n">persist</span><span class="p">()</span>
+<span class="n">diff</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify the data</span>
+<span class="n">diff</span><span class="p">[</span><span class="s2">&quot;diff&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">([</span><span class="s2">&quot;lat&quot;</span><span class="p">,</span> <span class="s2">&quot;lon&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="c1"># Save snapshot to disk</span>
+<span class="n">diff</span><span class="o">.</span><span class="n">to_zarr</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target_root</span><span class="si">}</span><span class="s2">/diff.zarr&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">storage_options</span><span class="o">=</span><span class="n">storage_options</span><span class="p">)</span>
+
+<span class="c1"># Cleanup</span>
+<span class="k">del</span> <span class="n">tag_log</span><span class="p">,</span> <span class="n">cat</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">reference_model</span><span class="p">,</span> <span class="n">reshaped_tag</span><span class="p">,</span> <span class="n">diff</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="3.-Regrid-the-Grid-from-Reference-Model-Grid-to-Healpix-Grid:-Transform-the-grid-from-the-reference-model-to-the-Healpix-grid-for-further-analysis.">
+<h2>3. <strong>Regrid the Grid from Reference Model Grid to Healpix Grid:</strong> Transform the grid from the reference model to the Healpix grid for further analysis.<a class="headerlink" href="#3.-Regrid-the-Grid-from-Reference-Model-Grid-to-Healpix-Grid:-Transform-the-grid-from-the-reference-model-to-the-Healpix-grid-for-further-analysis." title="Link to this heading"></a></h2>
+<p>In this step, we regrid the data from the reference model grid to a Healpix grid. This process involves defining the Healpix grid, creating the target grid, computing interpolation weights, performing the regridding, and saving the regridded data.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import necessary libraries</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xarray_healpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">HealpyGridInfo</span><span class="p">,</span> <span class="n">HealpyRegridder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pangeo_fish.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">center_longitude</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+
+<span class="c1"># Open the diff data and performs cleaning operations to prepare it for regridding.</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target_root</span><span class="si">}</span><span class="s2">/diff.zarr&quot;</span><span class="p">,</span>
+        <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;zarr&quot;</span><span class="p">,</span>
+        <span class="n">chunks</span><span class="o">=</span><span class="p">{},</span>
+        <span class="n">storage_options</span><span class="o">=</span><span class="n">storage_options</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="k">lambda</span> <span class="n">ds</span><span class="p">:</span> <span class="n">ds</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">ds</span><span class="p">[[</span><span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">compute</span><span class="p">()))</span>
+    <span class="o">.</span><span class="n">swap_dims</span><span class="p">({</span><span class="s2">&quot;lat&quot;</span><span class="p">:</span> <span class="s2">&quot;yi&quot;</span><span class="p">,</span> <span class="s2">&quot;lon&quot;</span><span class="p">:</span> <span class="s2">&quot;xi&quot;</span><span class="p">})</span>
+    <span class="o">.</span><span class="n">drop_vars</span><span class="p">([</span><span class="s2">&quot;lat&quot;</span><span class="p">,</span> <span class="s2">&quot;lon&quot;</span><span class="p">])</span>
+<span class="p">)</span>
+<span class="n">ds</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="c1"># Define the target Healpix grid information</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">HealpyGridInfo</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">nside</span><span class="p">)))</span>
+<span class="n">target_grid</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">target_grid</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">center_longitude</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">target_grid</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="c1"># Compute the interpolation weights for regridding the diff data</span>
+<span class="n">regridder</span> <span class="o">=</span> <span class="n">HealpyRegridder</span><span class="p">(</span>
+    <span class="n">ds</span><span class="p">[[</span><span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;ocean_mask&quot;</span><span class="p">]],</span>
+    <span class="n">target_grid</span><span class="p">,</span>
+    <span class="n">method</span><span class="o">=</span><span class="s2">&quot;bilinear&quot;</span><span class="p">,</span>
+    <span class="n">interpolation_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;mask&quot;</span><span class="p">:</span> <span class="s2">&quot;ocean_mask&quot;</span><span class="p">,</span> <span class="s2">&quot;min_vertices&quot;</span><span class="p">:</span> <span class="n">min_vertices</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="n">regridder</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="c1"># Perform the regridding operation using the computed interpolation weights.</span>
+<span class="n">regridded</span> <span class="o">=</span> <span class="n">regridder</span><span class="o">.</span><span class="n">regrid_ds</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+<span class="n">regridded</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="c1"># Reshape the regridded data to 2D</span>
+<span class="n">reshaped</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">to_2d</span><span class="p">(</span><span class="n">regridded</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">center_longitude</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">reshaped</span> <span class="o">=</span> <span class="n">reshaped</span><span class="o">.</span><span class="n">persist</span><span class="p">()</span>
+<span class="n">reshaped</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This cell verifies the regridded data by plotting the count of non-NaN values.</span>
+<span class="n">reshaped</span><span class="p">[</span><span class="s2">&quot;diff&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">([</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="c1"># This cell saves the regridded data to Zarr format, then cleans up unnecessary variables to free up memory after the regridding process.</span>
+<span class="n">reshaped</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="n">default_chunk_xy</span><span class="p">)</span><span class="o">.</span><span class="n">to_zarr</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target_root</span><span class="si">}</span><span class="s2">/diff-regridded.zarr&quot;</span><span class="p">,</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span>
+    <span class="n">consolidated</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">compute</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">storage_options</span><span class="o">=</span><span class="n">storage_options</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="c1"># Cleanup unnecessary variables to free up memory</span>
+<span class="k">del</span> <span class="n">ds</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">target_grid</span><span class="p">,</span> <span class="n">regridder</span><span class="p">,</span> <span class="n">regridded</span><span class="p">,</span> <span class="n">reshaped</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="4.-Construct-Emission-Matrix:-Create-an-emission-matrix-based-on-the-transformed-grid.">
+<h2>4. <strong>Construct Emission Matrix:</strong> Create an emission matrix based on the transformed grid.<a class="headerlink" href="#4.-Construct-Emission-Matrix:-Create-an-emission-matrix-based-on-the-transformed-grid." title="Link to this heading"></a></h2>
+<p>In this step, we construct the emission probability matrix based on the differences between the observed tag temperature and the reference sea temperature computed in Workflow 2 and regridded in Workflow 3. The emission probability matrix represents the likelihood of observing a specific temperature difference given the model parameters and configurations.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import necessary libraries</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">toolz.dicttoolz</span><span class="w"> </span><span class="kn">import</span> <span class="n">valfilter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pangeo_fish.distributions</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_covariances</span><span class="p">,</span> <span class="n">normal_at</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pangeo_fish.pdf</span><span class="w"> </span><span class="kn">import</span> <span class="n">normal</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="c1"># Open the regridded diff data</span>
+<span class="n">differences</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target_root</span><span class="si">}</span><span class="s2">/diff-regridded.zarr&quot;</span><span class="p">,</span>
+    <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;zarr&quot;</span><span class="p">,</span>
+    <span class="n">chunks</span><span class="o">=</span><span class="p">{},</span>
+    <span class="n">storage_options</span><span class="o">=</span><span class="n">storage_options</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="k">lambda</span> <span class="n">ds</span><span class="p">:</span> <span class="n">ds</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">ds</span><span class="p">[[</span><span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">compute</span><span class="p">()))</span>
+<span class="n">differences</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="c1"># Compute initial and final position</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">differences</span><span class="p">[[</span><span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+
+<span class="n">initial_position</span> <span class="o">=</span> <span class="n">tag</span><span class="p">[</span><span class="s2">&quot;tagging_events&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">event_name</span><span class="o">=</span><span class="s2">&quot;release&quot;</span><span class="p">)</span>
+<span class="n">cov</span> <span class="o">=</span> <span class="n">create_covariances</span><span class="p">(</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">coord_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">])</span>
+<span class="n">initial_probability</span> <span class="o">=</span> <span class="n">normal_at</span><span class="p">(</span>
+    <span class="n">grid</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">initial_position</span><span class="p">,</span> <span class="n">cov</span><span class="o">=</span><span class="n">cov</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">final_position</span> <span class="o">=</span> <span class="n">tag</span><span class="p">[</span><span class="s2">&quot;tagging_events&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">event_name</span><span class="o">=</span><span class="s2">&quot;fish_death&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">final_position</span><span class="p">[[</span><span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_dataarray</span><span class="p">()</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+    <span class="n">final_probability</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">cov</span> <span class="o">=</span> <span class="n">create_covariances</span><span class="p">(</span><span class="n">recapture_std</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">coord_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">])</span>
+    <span class="n">final_probability</span> <span class="o">=</span> <span class="n">normal_at</span><span class="p">(</span>
+        <span class="n">grid</span><span class="p">,</span>
+        <span class="n">pos</span><span class="o">=</span><span class="n">final_position</span><span class="p">,</span>
+        <span class="n">cov</span><span class="o">=</span><span class="n">cov</span><span class="p">,</span>
+        <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">axes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">],</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="c1"># compute emission probability matrix</span>
+
+<span class="n">emission_pdf</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">normal</span><span class="p">(</span><span class="n">differences</span><span class="p">[</span><span class="s2">&quot;diff&quot;</span><span class="p">],</span> <span class="n">mean</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="n">differences_std</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">])</span>
+    <span class="o">.</span><span class="n">to_dataset</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;pdf&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+        <span class="n">valfilter</span><span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;initial&quot;</span><span class="p">:</span> <span class="n">initial_probability</span><span class="p">,</span>
+                <span class="s2">&quot;final&quot;</span><span class="p">:</span> <span class="n">final_probability</span><span class="p">,</span>
+                <span class="s2">&quot;mask&quot;</span><span class="p">:</span> <span class="n">differences</span><span class="p">[</span><span class="s2">&quot;ocean_mask&quot;</span><span class="p">],</span>
+            <span class="p">},</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">assign_attrs</span><span class="p">(</span><span class="n">differences</span><span class="o">.</span><span class="n">attrs</span><span class="p">)</span>  <span class="c1"># | {&quot;max_sigma&quot;: max_sigma})</span>
+<span class="p">)</span>
+
+<span class="n">emission_pdf</span> <span class="o">=</span> <span class="n">emission_pdf</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="n">default_chunk_xy</span><span class="p">)</span><span class="o">.</span><span class="n">persist</span><span class="p">()</span>
+<span class="n">emission_pdf</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify the data</span>
+<span class="n">emission_pdf</span><span class="p">[</span><span class="s2">&quot;pdf&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">([</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This cell saves the emission data to Zarr format, then cleans up unnecessary variables to free up memory.</span>
+
+<span class="n">emission_pdf</span><span class="o">.</span><span class="n">to_zarr</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target_root</span><span class="si">}</span><span class="s2">/emission.zarr&quot;</span><span class="p">,</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span>
+    <span class="n">consolidated</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">storage_options</span><span class="o">=</span><span class="n">storage_options</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="k">del</span> <span class="n">differences</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">initial_probability</span><span class="p">,</span> <span class="n">final_probability</span><span class="p">,</span> <span class="n">emission_pdf</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="5.-Compute-Additional-Emission-Probability-Matrix:-Calculate-an-additional-emission-probability-matrix,-particularly-focusing-on-teledetection-from-acoustic-signals.">
+<h2>5. <strong>Compute Additional Emission Probability Matrix:</strong> Calculate an additional emission probability matrix, particularly focusing on teledetection from acoustic signals.<a class="headerlink" href="#5.-Compute-Additional-Emission-Probability-Matrix:-Calculate-an-additional-emission-probability-matrix,-particularly-focusing-on-teledetection-from-acoustic-signals." title="Link to this heading"></a></h2>
+<p>In this step, we compute additional emission probabilities based on acoustic detections for the selected tag. These additional probabilities enhance the emission probability matrix constructed in step 4 by incorporating information from acoustic telemetry.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="c1"># Import necessary libraries and open data and perform initial setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pangeo_fish</span><span class="w"> </span><span class="kn">import</span> <span class="n">acoustic</span><span class="p">,</span> <span class="n">utils</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">hvplot.xarray</span>
+
+<span class="n">emission</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target_root</span><span class="si">}</span><span class="s2">/emission.zarr&quot;</span><span class="p">,</span>
+    <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;zarr&quot;</span><span class="p">,</span>
+    <span class="n">chunks</span><span class="o">=</span><span class="p">{},</span>  <span class="c1"># &quot;x&quot;: -1, &quot;y&quot;: -1},</span>
+    <span class="n">storage_options</span><span class="o">=</span><span class="n">storage_options</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">emission</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="c1"># Construct the emission probabilities based on acoustic detections</span>
+
+<span class="n">acoustic_pdf</span> <span class="o">=</span> <span class="n">acoustic</span><span class="o">.</span><span class="n">emission_probability</span><span class="p">(</span>
+    <span class="n">tag</span><span class="p">,</span>
+    <span class="n">emission</span><span class="p">[[</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;cell_ids&quot;</span><span class="p">,</span> <span class="s2">&quot;mask&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">compute</span><span class="p">(),</span>
+    <span class="n">receiver_buffer</span><span class="p">,</span>
+    <span class="n">nondetections</span><span class="o">=</span><span class="s2">&quot;mask&quot;</span><span class="p">,</span>
+    <span class="n">chunk_time</span><span class="o">=</span><span class="n">chunk_time</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">acoustic_pdf</span> <span class="o">=</span> <span class="n">acoustic_pdf</span><span class="o">.</span><span class="n">persist</span><span class="p">()</span>
+<span class="n">acoustic_pdf</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify the data and visualize the acoustic detections</span>
+<span class="n">tag</span><span class="p">[</span><span class="s2">&quot;acoustic&quot;</span><span class="p">][</span><span class="s2">&quot;deployment_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">hvplot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span>
+    <span class="n">acoustic_pdf</span><span class="p">[</span><span class="s2">&quot;acoustic&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span>
+<span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">hvplot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">acoustic_pdf</span><span class="p">[</span><span class="s2">&quot;acoustic&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">hvplot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Merge and save the combined emission probability matrix with acoustic probabilities</span>
+
+<span class="n">combined</span> <span class="o">=</span> <span class="n">emission</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">acoustic_pdf</span><span class="p">)</span>
+<span class="n">combined</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This cell saves the emission data to Zarr format, then cleans up unnecessary variables to free up memory.</span>
+
+<span class="n">combined</span><span class="o">.</span><span class="n">to_zarr</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target_root</span><span class="si">}</span><span class="s2">/emission_acoustic.zarr&quot;</span><span class="p">,</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span>
+    <span class="n">consolidated</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">storage_options</span><span class="o">=</span><span class="n">storage_options</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="c1"># cleanup</span>
+
+<span class="k">del</span> <span class="n">emission</span><span class="p">,</span> <span class="n">acoustic_pdf</span><span class="p">,</span> <span class="n">combined</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="6.-Combine-and-Normalize-Emission-Matrix:-Merge-the-emission-matrix-and-normalize-it-for-further-processing.">
+<h2>6. <strong>Combine and Normalize Emission Matrix:</strong> Merge the emission matrix and normalize it for further processing.<a class="headerlink" href="#6.-Combine-and-Normalize-Emission-Matrix:-Merge-the-emission-matrix-and-normalize-it-for-further-processing." title="Link to this heading"></a></h2>
+<p>In this step, we combine the emission probability matrix constructed in Workflow 4 and 5 then normalize it to ensure that the probabilities sum up to one. This step prepares the combined emission matrix for further analysis and interpretation.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import necessary libraries</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pangeo_fish.pdf</span><span class="w"> </span><span class="kn">import</span> <span class="n">combine_emission_pdf</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">hvplot.xarray</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Open and combine the emission probability matrix</span>
+
+<span class="n">combined</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target_root</span><span class="si">}</span><span class="s2">/emission_acoustic.zarr&quot;</span><span class="p">,</span>
+        <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;zarr&quot;</span><span class="p">,</span>
+        <span class="n">chunks</span><span class="o">=</span><span class="n">default_chunk_xy</span><span class="p">,</span>
+        <span class="n">inline_array</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">storage_options</span><span class="o">=</span><span class="n">storage_options</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">combine_emission_pdf</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="n">default_chunk_xy</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">persist</span><span class="p">()</span>  <span class="c1"># convert to comment if the emission matrix does *not* fit in memory</span>
+<span class="p">)</span>
+<span class="n">combined</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify the data and visualize the sum of probabilities</span>
+<span class="n">combined</span><span class="p">[</span><span class="s2">&quot;pdf&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">([</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">hvplot</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save the combined and normalized emission matrix</span>
+<span class="n">combined</span><span class="o">.</span><span class="n">to_zarr</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target_root</span><span class="si">}</span><span class="s2">/combined.zarr&quot;</span><span class="p">,</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span>
+    <span class="n">consolidated</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">storage_options</span><span class="o">=</span><span class="n">storage_options</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="k">del</span> <span class="n">combined</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="7.-Estimate-Model-Parameters:-Determine-the-parameters-of-the-model-based-on-the-normalized-emission-matrix.">
+<h2>7. <strong>Estimate Model Parameters:</strong> Determine the parameters of the model based on the normalized emission matrix.<a class="headerlink" href="#7.-Estimate-Model-Parameters:-Determine-the-parameters-of-the-model-based-on-the-normalized-emission-matrix." title="Link to this heading"></a></h2>
+<div class="line-block">
+<div class="line">This step first estimates maxixmum allowed value of model parameter ‘sigma’ max_sigma. Then we create an optimizer with an expected parameter range, fitting the model to the normalized emission matrix.</div>
+<div class="line">The resulting optimized parameters is saved to a json file.</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import necessary libraries and modules for data analysis.</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pangeo_fish.hmm.estimator</span><span class="w"> </span><span class="kn">import</span> <span class="n">EagerEstimator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pangeo_fish.hmm.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">EagerBoundsSearch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pangeo_fish.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">temporal_resolution</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pangeo_fish.hmm.prediction</span><span class="w"> </span><span class="kn">import</span> <span class="n">Gaussian1DHealpix</span><span class="p">,</span> <span class="n">Gaussian2DCartesian</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tlz.functoolz</span><span class="w"> </span><span class="kn">import</span> <span class="n">curry</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xdggs</span>
+
+<span class="c1"># Open the data</span>
+<span class="n">emission</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target_root</span><span class="si">}</span><span class="s2">/combined.zarr&quot;</span><span class="p">,</span>
+    <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;zarr&quot;</span><span class="p">,</span>
+    <span class="n">chunks</span><span class="o">=</span><span class="p">{},</span>
+    <span class="n">inline_array</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">storage_options</span><span class="o">=</span><span class="n">storage_options</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">emission</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute maximum displacement for each reference model time step</span>
+<span class="c1"># and estimate maximum sigma value for limiting the optimisation step</span>
+
+<span class="n">earth_radius_</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">earth_radius</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+<span class="n">timedelta</span> <span class="o">=</span> <span class="n">temporal_resolution</span><span class="p">(</span><span class="n">emission</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">pint</span><span class="o">.</span><span class="n">quantify</span><span class="p">()</span><span class="o">.</span><span class="n">pint</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;h&quot;</span><span class="p">)</span>
+<span class="n">grid_resolution</span> <span class="o">=</span> <span class="n">earth_radius_</span> <span class="o">*</span> <span class="n">emission</span><span class="p">[</span><span class="s2">&quot;resolution&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">pint</span><span class="o">.</span><span class="n">quantify</span><span class="p">()</span>
+
+<span class="n">maximum_speed_</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">maximum_speed</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">pint</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;km / h&quot;</span><span class="p">)</span>
+<span class="n">max_grid_displacement</span> <span class="o">=</span> <span class="n">maximum_speed_</span> <span class="o">*</span> <span class="n">timedelta</span> <span class="o">*</span> <span class="n">adjustment_factor</span> <span class="o">/</span> <span class="n">grid_resolution</span>
+<span class="n">max_sigma</span> <span class="o">=</span> <span class="n">max_grid_displacement</span><span class="o">.</span><span class="n">pint</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;dimensionless&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">pint</span><span class="o">.</span><span class="n">magnitude</span> <span class="o">/</span> <span class="n">truncate</span>
+<span class="n">emission</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;max_sigma&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">max_sigma</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="n">max_sigma</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create and configure estimator and optimizer</span>
+<span class="n">emission</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">emission</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+<span class="p">)</span>  <span class="c1"># Convert to comment if the emission matrix does *not* fit in memory</span>
+
+<span class="c1"># Set required attributes cleanly</span>
+<span class="n">emission</span><span class="p">[</span><span class="s2">&quot;cell_ids&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;grid_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;healpix&quot;</span>
+<span class="c1"># Récupérer les attributs existants de cell_ids</span>
+<span class="n">attrs_to_keep</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;level&quot;</span><span class="p">,</span> <span class="s2">&quot;grid_name&quot;</span><span class="p">]</span>
+<span class="c1"># should also have nest</span>
+<span class="n">emission</span><span class="p">[</span><span class="s2">&quot;cell_ids&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">key</span><span class="p">:</span> <span class="n">value</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">emission</span><span class="p">[</span><span class="s2">&quot;cell_ids&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">attrs_to_keep</span>
+<span class="p">}</span>
+
+<span class="n">predictor_factory</span> <span class="o">=</span> <span class="n">curry</span><span class="p">(</span><span class="n">Gaussian2DCartesian</span><span class="p">,</span> <span class="n">truncate</span><span class="o">=</span><span class="mf">4.0</span><span class="p">)</span>
+
+<span class="n">estimator</span> <span class="o">=</span> <span class="n">EagerEstimator</span><span class="p">(</span><span class="n">sigma</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">predictor_factory</span><span class="o">=</span><span class="n">predictor_factory</span><span class="p">)</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">EagerBoundsSearch</span><span class="p">(</span>
+    <span class="n">estimator</span><span class="p">,</span>
+    <span class="p">(</span><span class="mf">1e-4</span><span class="p">,</span> <span class="n">emission</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;max_sigma&quot;</span><span class="p">]),</span>
+    <span class="n">optimizer_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;disp&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;xtol&quot;</span><span class="p">:</span> <span class="n">tolerance</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="n">emission</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="c1"># Fit the model parameter to the data</span>
+<span class="n">optimized</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">emission</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save the optimized parameters</span>
+<span class="n">params</span> <span class="o">=</span> <span class="n">optimized</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s2">&quot;index&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target_root</span><span class="si">}</span><span class="s2">/parameters_2D.json&quot;</span><span class="p">,</span> <span class="n">storage_options</span><span class="o">=</span><span class="n">storage_options</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cleanup</span>
+<span class="k">del</span> <span class="n">optimized</span><span class="p">,</span> <span class="n">emission</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="8.-Compute-State-Probabilities-and-Tracks:-Calculate-the-probability-distribution-of-the-species-in-question-and-compute-the-tracks.">
+<h2>8. <strong>Compute State Probabilities and Tracks:</strong> Calculate the probability distribution of the species in question and compute the tracks.<a class="headerlink" href="#8.-Compute-State-Probabilities-and-Tracks:-Calculate-the-probability-distribution-of-the-species-in-question-and-compute-the-tracks." title="Link to this heading"></a></h2>
+<p>This step involves predicting state probabilities using the optimised parameter sigma computed in the last step together with normalized emission matrix.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import necessary libraries and modules for data analysis.</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">hvplot.xarray</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pangeo_fish.hmm.estimator</span><span class="w"> </span><span class="kn">import</span> <span class="n">EagerEstimator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pangeo_fish.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">save_trajectories</span>
+
+<span class="c1"># Recreate the Estimator</span>
+<span class="n">params</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target_root</span><span class="si">}</span><span class="s2">/parameters_2D.json&quot;</span><span class="p">,</span> <span class="n">storage_options</span><span class="o">=</span><span class="n">storage_options</span>
+<span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">|</span> <span class="p">{</span><span class="s2">&quot;predictor_factory&quot;</span><span class="p">:</span> <span class="n">predictor_factory</span><span class="p">}</span>
+<span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;predictor&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+<span class="n">optimized</span> <span class="o">=</span> <span class="n">EagerEstimator</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+<span class="n">optimized</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="c1"># Load the Data</span>
+<span class="n">emission</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target_root</span><span class="si">}</span><span class="s2">/combined.zarr&quot;</span><span class="p">,</span>
+    <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;zarr&quot;</span><span class="p">,</span>
+    <span class="n">chunks</span><span class="o">=</span><span class="n">default_chunk_xy</span><span class="p">,</span>
+    <span class="n">inline_array</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">storage_options</span><span class="o">=</span><span class="n">storage_options</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+
+<span class="c1"># Assuming your dataset is called `emission`</span>
+<span class="n">emission</span><span class="p">[</span><span class="s2">&quot;pdf&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">emission</span><span class="p">[</span><span class="s2">&quot;pdf&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">)</span>
+
+<span class="c1"># Predict the State Probabilities</span>
+<span class="n">states</span> <span class="o">=</span> <span class="n">optimized</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">emission</span><span class="p">)</span>
+<span class="n">states</span> <span class="o">=</span> <span class="n">states</span><span class="o">.</span><span class="n">to_dataset</span><span class="p">()</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="n">default_chunk_xy</span><span class="p">)</span><span class="o">.</span><span class="n">persist</span><span class="p">()</span>
+<span class="n">states</span>
+</pre></div>
+</div>
+</div>
+# Set required attributes cleanly
+states_1D["cell_ids"].attrs["grid_name"] = "healpix"
+#emission_1D["cell_ids"].attrs["nest"] = True
+# Récupérer les attributs existants de cell_ids
+attrs_to_keep = ["level", "grid_name"]
+# should also have nest
+states_1D["cell_ids"].attrs = {key: value for key, value in states_1D["cell_ids"].
+                              attrs.items() if key in attrs_to_keep}
+states_1D<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">states</span> <span class="o">=</span> <span class="n">states</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">cells</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">))</span>
+<span class="n">states</span> <span class="o">=</span> <span class="n">states</span><span class="o">.</span><span class="n">drop_vars</span><span class="p">([</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">])</span>
+<span class="c1"># Set required attributes cleanly</span>
+<span class="n">states</span><span class="p">[</span><span class="s2">&quot;cell_ids&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;grid_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;healpix&quot;</span>
+<span class="c1"># emission_1D[&quot;cell_ids&quot;].attrs[&quot;nest&quot;] = True</span>
+<span class="c1"># Récupérer les attributs existants de cell_ids</span>
+<span class="n">attrs_to_keep</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;level&quot;</span><span class="p">,</span> <span class="s2">&quot;grid_name&quot;</span><span class="p">]</span>
+<span class="c1"># should also have nest</span>
+<span class="n">states</span><span class="p">[</span><span class="s2">&quot;cell_ids&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">key</span><span class="p">:</span> <span class="n">value</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">states</span><span class="p">[</span><span class="s2">&quot;cell_ids&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">attrs_to_keep</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">states</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">xdggs</span><span class="o">.</span><span class="n">decode</span><span class="p">)</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">dggs</span><span class="o">.</span><span class="n">explore</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="c1"># Save probability distirbution, state matrix.</span>
+<span class="c1"># states = states.reset_index(&quot;cells&quot;)</span>
+<span class="c1"># states = states.drop_vars([&quot;x&quot;, &quot;y&quot;])</span>
+
+<span class="n">states</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="n">default_chunk_xy</span><span class="p">)</span><span class="o">.</span><span class="n">to_zarr</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target_root</span><span class="si">}</span><span class="s2">/states.zarr&quot;</span><span class="p">,</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span>
+    <span class="n">consolidated</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">storage_options</span><span class="o">=</span><span class="n">storage_options</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">states</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="c1"># decode tracks</span>
+
+<span class="n">trajectories</span> <span class="o">=</span> <span class="n">optimized</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span>
+    <span class="n">emission</span><span class="p">,</span>
+    <span class="n">states</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+    <span class="n">mode</span><span class="o">=</span><span class="n">track_modes</span><span class="p">,</span>
+    <span class="n">progress</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">additional_quantities</span><span class="o">=</span><span class="n">additional_track_quantities</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">trajectories</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">optimized</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save trajectories.</span>
+<span class="c1"># Here we can chose format parquet for loading files from &#39;R&#39;</span>
+<span class="c1"># or chose to  format &#39;geoparquet&#39; for further analysis of tracks using</span>
+<span class="c1"># geopands.</span>
+
+<span class="n">save_trajectories</span><span class="p">(</span><span class="n">trajectories</span><span class="p">,</span> <span class="n">target_root</span><span class="p">,</span> <span class="n">storage_options</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;parquet&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cleanup</span>
+<span class="k">del</span> <span class="n">optimized</span><span class="p">,</span> <span class="n">emission</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span> <span class="n">trajectories</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="9.-Visualization:-Visualize-the-results-of-the-analysis-for-interpretation-and-insight.">
+<h2>9. <strong>Visualization:</strong> Visualize the results of the analysis for interpretation and insight.<a class="headerlink" href="#9.-Visualization:-Visualize-the-results-of-the-analysis-for-interpretation-and-insight." title="Link to this heading"></a></h2>
+<p>In this step, we visualize various aspects of the analysis results to gain insights and interpret the model outcomes. We plot the emission matrix, which represents the likelihood of observing a specific temperature difference given the model parameters and configurations. Additionally, we visualize the state probabilities, showing the likelihood of the system being in different states at each time step. We also plot each of the tracks of the tagged fish, displaying their movement patterns over
+time. Finally, we create a movie that combines the emission matrix and state probabilities to provide a comprehensive visualization of the analysis results.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import necessary libraries</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">holoviews</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">hv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">hvplot.xarray</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cmocean</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xmovie</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pangeo_fish</span><span class="w"> </span><span class="kn">import</span> <span class="n">visualization</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pangeo_fish.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">read_trajectories</span><span class="p">,</span> <span class="n">save_html_hvplot</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">time</span>
+<span class="c1"># load trajectories</span>
+<span class="n">trajectories</span> <span class="o">=</span> <span class="n">read_trajectories</span><span class="p">(</span>
+    <span class="n">track_modes</span><span class="p">,</span> <span class="n">target_root</span><span class="p">,</span> <span class="n">storage_options</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;parquet&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># Plot trajectoriesand plot.</span>
+
+<span class="n">plots</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">traj</span><span class="o">.</span><span class="n">hvplot</span><span class="p">(</span>
+        <span class="n">c</span><span class="o">=</span><span class="s2">&quot;speed&quot;</span><span class="p">,</span>
+        <span class="n">tiles</span><span class="o">=</span><span class="s2">&quot;CartoLight&quot;</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+        <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;cmo.speed&quot;</span>
+        <span class="c1">#                ,xlim=bbox[&#39;longitude&#39;],        ylim=bbox[&#39;latitude&#39;]</span>
+        <span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">for</span> <span class="n">traj</span> <span class="ow">in</span> <span class="n">trajectories</span><span class="o">.</span><span class="n">trajectories</span>
+<span class="p">]</span>
+<span class="n">plot</span> <span class="o">=</span> <span class="n">hv</span><span class="o">.</span><span class="n">Layout</span><span class="p">(</span><span class="n">plots</span><span class="p">)</span><span class="o">.</span><span class="n">cols</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">filepath</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target_root</span><span class="si">}</span><span class="s2">/trajectories.html&quot;</span>
+<span class="n">save_html_hvplot</span><span class="p">(</span><span class="n">plot</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">storage_options</span><span class="p">)</span>
+
+<span class="n">plot</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="c1"># load files for plotting</span>
+
+<span class="n">emission</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target_root</span><span class="si">}</span><span class="s2">/combined.zarr&quot;</span><span class="p">,</span>
+        <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;zarr&quot;</span><span class="p">,</span>
+        <span class="n">chunks</span><span class="o">=</span><span class="p">{},</span>
+        <span class="n">inline_array</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">storage_options</span><span class="o">=</span><span class="n">storage_options</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">rename_vars</span><span class="p">({</span><span class="s2">&quot;pdf&quot;</span><span class="p">:</span> <span class="s2">&quot;emission&quot;</span><span class="p">})</span>
+    <span class="o">.</span><span class="n">drop_vars</span><span class="p">([</span><span class="s2">&quot;final&quot;</span><span class="p">,</span> <span class="s2">&quot;initial&quot;</span><span class="p">])</span>
+<span class="p">)</span>  <span class="c1"># .where(emission[&quot;mask&quot;])</span>
+<span class="n">states</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target_root</span><span class="si">}</span><span class="s2">/states.zarr&quot;</span><span class="p">,</span>
+    <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;zarr&quot;</span><span class="p">,</span>
+    <span class="n">chunks</span><span class="o">=</span><span class="p">{},</span>
+    <span class="n">inline_array</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">storage_options</span><span class="o">=</span><span class="n">storage_options</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">emission</span><span class="p">[</span><span class="s2">&quot;mask&quot;</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">merge</span><span class="p">([</span><span class="n">states</span><span class="p">,</span> <span class="n">emission</span><span class="o">.</span><span class="n">drop_vars</span><span class="p">([</span><span class="s2">&quot;mask&quot;</span><span class="p">])])</span>
+
+<span class="c1"># visualize states and emission matrix.  Save the visualisation in an html file.</span>
+<span class="c1">#</span>
+<span class="n">plot1</span> <span class="o">=</span> <span class="n">visualization</span><span class="o">.</span><span class="n">plot_map</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;states&quot;</span><span class="p">],</span> <span class="n">bbox</span><span class="p">)</span>
+<span class="n">plot2</span> <span class="o">=</span> <span class="n">visualization</span><span class="o">.</span><span class="n">plot_map</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;emission&quot;</span><span class="p">],</span> <span class="n">bbox</span><span class="p">)</span>
+<span class="n">plot</span> <span class="o">=</span> <span class="n">hv</span><span class="o">.</span><span class="n">Layout</span><span class="p">([</span><span class="n">plot1</span><span class="p">,</span> <span class="n">plot2</span><span class="p">])</span><span class="o">.</span><span class="n">cols</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">filepath</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target_root</span><span class="si">}</span><span class="s2">/states_emission.html&quot;</span>
+
+<span class="n">plot</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="c1">## Create Movies</span>
+<span class="c1">#</span>
+<span class="n">mov</span> <span class="o">=</span> <span class="n">xmovie</span><span class="o">.</span><span class="n">Movie</span><span class="p">(</span>
+    <span class="p">(</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">time_step</span><span class="p">))</span>
+        <span class="o">.</span><span class="n">chunk</span><span class="p">({</span><span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">})</span>
+        <span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="k">lambda</span> <span class="n">ds</span><span class="p">:</span> <span class="n">ds</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">ds</span><span class="p">[[</span><span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">compute</span><span class="p">()))</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">visualization</span><span class="o">.</span><span class="n">filter_by_states</span><span class="p">),</span>
+    <span class="n">plotfunc</span><span class="o">=</span><span class="n">visualization</span><span class="o">.</span><span class="n">create_frame</span><span class="p">,</span>
+    <span class="n">input_check</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">pixelwidth</span><span class="o">=</span><span class="mi">15</span> <span class="o">*</span> <span class="mi">400</span><span class="p">,</span>
+    <span class="n">pixelheight</span><span class="o">=</span><span class="mi">12</span> <span class="o">*</span> <span class="mi">400</span><span class="p">,</span>
+    <span class="n">dpi</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="c1">## workaround dueto https://github.com/jbusecke/xmovie/issues/162</span>
+<span class="c1"># use local file system</span>
+
+<span class="k">if</span> <span class="n">target_root</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;s3://&quot;</span><span class="p">):</span>
+    <span class="err">!</span><span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="n">movie</span>
+    <span class="n">mov</span><span class="o">.</span><span class="n">save</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;./movie/states.mp4&quot;</span><span class="p">,</span>
+        <span class="n">overwrite_existing</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">s3fs</span>
+
+    <span class="n">s3</span> <span class="o">=</span> <span class="n">s3fs</span><span class="o">.</span><span class="n">S3FileSystem</span><span class="p">(</span><span class="o">**</span><span class="n">storage_options</span><span class="p">)</span>
+    <span class="n">s3</span><span class="o">.</span><span class="n">put_file</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./movie/states.mp4&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target_root</span><span class="si">}</span><span class="s2">/states.mp4&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">mov</span><span class="o">.</span><span class="n">save</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target_root</span><span class="si">}</span><span class="s2">/states.mp4&quot;</span><span class="p">,</span>
+        <span class="n">overwrite_existing</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="format.html" class="btn btn-neutral float-left" title="Biologging Data Specification" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023-2025, pangeo-fish developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

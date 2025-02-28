@@ -1,0 +1,6 @@
+﻿pangeo\_fish.distributions.planar2d.create\_covariances
+=======================================================
+
+.. currentmodule:: pangeo_fish.distributions.planar2d
+
+.. autofunction:: create_covariances

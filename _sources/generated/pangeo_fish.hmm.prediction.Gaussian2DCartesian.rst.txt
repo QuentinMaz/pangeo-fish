@@ -1,0 +1,31 @@
+﻿pangeo\_fish.hmm.prediction.Gaussian2DCartesian
+===============================================
+
+.. currentmodule:: pangeo_fish.hmm.prediction
+
+.. autoclass:: Gaussian2DCartesian
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Gaussian2DCartesian.__init__
+      ~Gaussian2DCartesian.predict
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~Gaussian2DCartesian.truncate
+      ~Gaussian2DCartesian.sigma
+      ~Gaussian2DCartesian.filter_kwargs
+   
+   

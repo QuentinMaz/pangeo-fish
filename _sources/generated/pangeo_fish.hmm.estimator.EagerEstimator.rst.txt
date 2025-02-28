@@ -1,0 +1,35 @@
+﻿pangeo\_fish.hmm.estimator.EagerEstimator
+=========================================
+
+.. currentmodule:: pangeo_fish.hmm.estimator
+
+.. autoclass:: EagerEstimator
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~EagerEstimator.__init__
+      ~EagerEstimator.decode
+      ~EagerEstimator.predict_proba
+      ~EagerEstimator.score
+      ~EagerEstimator.set_params
+      ~EagerEstimator.to_dict
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~EagerEstimator.predictor
+      ~EagerEstimator.sigma
+      ~EagerEstimator.predictor_factory
+   
+   

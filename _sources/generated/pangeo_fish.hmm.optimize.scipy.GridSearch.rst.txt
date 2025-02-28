@@ -1,0 +1,23 @@
+﻿pangeo\_fish.hmm.optimize.scipy.GridSearch
+==========================================
+
+.. currentmodule:: pangeo_fish.hmm.optimize.scipy
+
+.. autoclass:: GridSearch
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~GridSearch.__init__
+      ~GridSearch.fit
+   
+   
+
+   
+   
+   

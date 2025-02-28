@@ -1,0 +1,6 @@
+﻿pangeo\_fish.tags.to\_time\_slice
+=================================
+
+.. currentmodule:: pangeo_fish.tags
+
+.. autofunction:: to_time_slice

@@ -1,0 +1,6 @@
+﻿pangeo\_fish.hmm.optimize.scipy.GridSearch.fit
+==============================================
+
+.. currentmodule:: pangeo_fish.hmm.optimize.scipy
+
+.. automethod:: GridSearch.fit

@@ -1,0 +1,6 @@
+﻿pangeo\_fish.io.save\_trajectories
+==================================
+
+.. currentmodule:: pangeo_fish.io
+
+.. autofunction:: save_trajectories

@@ -1,0 +1,6 @@
+﻿pangeo\_fish.healpy.geographic\_to\_astronomic
+==============================================
+
+.. currentmodule:: pangeo_fish.healpy
+
+.. autofunction:: geographic_to_astronomic

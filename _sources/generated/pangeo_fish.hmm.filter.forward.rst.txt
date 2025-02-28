@@ -1,0 +1,6 @@
+﻿pangeo\_fish.hmm.filter.forward
+===============================
+
+.. currentmodule:: pangeo_fish.hmm.filter
+
+.. autofunction:: forward

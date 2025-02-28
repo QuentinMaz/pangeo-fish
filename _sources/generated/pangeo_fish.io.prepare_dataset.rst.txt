@@ -1,0 +1,6 @@
+﻿pangeo\_fish.io.prepare\_dataset
+================================
+
+.. currentmodule:: pangeo_fish.io
+
+.. autofunction:: prepare_dataset
