@@ -16,14 +16,17 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -e . -r docs/requirements.txt
-      - name: Sphinx build
+      - name: Check imports
         run: |
-          sphinx-build docs _build --keep-going
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/documentation-gh-pages' }}
-        with:
-          publish_branch: gh-pages
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: _build/
-          force_orphan: true
+          python -c "from pangeo_fish.acoustic import extract_receivers; print(extract_receivers)"
+      # - name: Sphinx build
+      #   run: |
+      #     sphinx-build docs _build --keep-going
+      # - name: Deploy to GitHub Pages
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/documentation-gh-pages' }}
+      #   with:
+      #     publish_branch: gh-pages
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_dir: _build/
+      #     force_orphan: true
