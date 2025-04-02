@@ -327,6 +327,75 @@ def plot_tag(
     return plot
 
 
+def catalog_to_dataset(yaml_url: str, chunks=None):
+    """Open an intake catalog.
+
+    .. warning::
+        It currently supports only two catalogs [WIP].
+        This function is meant to be implemented per-catalog by future users.
+
+    Parameters
+    ----------
+    catalog_url : str
+        Path to the ``.yaml`` file
+    chunks : dict, optional
+        How to chunk the data
+
+    Returns
+    -------
+    model : xarray.Dataset
+        A dataset with the (notable) variables ``thetao``, ``zos``, ``mask`` and ``deptho``
+    """
+
+    def _rename_lon_lat(da: xr.DataArray):
+        dims = da.dims
+        if "latitude" in dims:
+            da = da.rename({"latitude": "lat"})
+        if "longitude" in dims:
+            da = da.rename({"longitude": "lon"})
+        return da
+
+    cat = intake.open_catalog(yaml_url)
+    # catalog used in the tutorial notebook
+    if cat.name == "ref-copernicus":
+        if chunks is None:
+            chunks = {"lat": -1, "lon": -1, "depth": 11, "time": 8}
+
+        thetao = _rename_lon_lat(
+            cat["data"](type="TEM", chunks=chunks).to_dask().get(["thetao"])
+        )  # type: xr.Dataset
+        deptho = _rename_lon_lat(
+            cat["data_tmp"](type="mdt", chunks=chunks).to_dask()["deptho"]
+        )
+        zos = _rename_lon_lat(cat["data"](type="SSH", chunks=chunks).to_dask()["zos"])
+        mask = _rename_lon_lat(
+            cat["data_tmp"](type="mdt", chunks=chunks).to_dask()["mask"]
+        )
+
+    # private catalog used for development
+    elif cat.name == "master":
+        thetao = (
+            _rename_lon_lat(
+                cat["cmems_mod_ibi_phy_my_0.083deg-3D_P1D-m"](chunk="time")
+                .to_dask()
+                .get(["thetao"])
+            )
+            .rename({"elevation": "depth"})
+            .assign_coords(depth=lambda ds: abs(ds["depth"]))
+        )  # type: xr.Dataset
+        zos = _rename_lon_lat(
+            cat["cmems_mod_ibi_phy_my_0.083deg-3D_P1D-m"](chunk="time").to_dask()["zos"]
+        )
+        deptho = _rename_lon_lat(
+            cat["cmems_mod_ibi_phy_my_0.083deg-3D_static"].to_dask()["deptho"]
+        )
+        mask = deptho.isnull()
+    else:
+        raise NotImplementedError()
+
+    return thetao.assign(zos=zos, deptho=deptho, mask=mask)
+
+
 def _open_copernicus_model(yaml_url: str, chunks: dict = None):
     """Open an intake catalog.
 
@@ -404,15 +473,15 @@ def load_model(
     """
 
     if uri.endswith(".yaml"):
-        model = _open_copernicus_model(
+        reference_ds = catalog_to_dataset(
             uri, chunks={"time": 8, "lat": -1, "lon": -1, "depth": -1}
         )
     elif uri.endswith(".parq") or uri.endswith(".parq/"):
         reference_ds = _open_parquet_model(uri)
-        model = prepare_dataset(reference_ds)
     else:
         raise ValueError('Only intake catalogs and "parqued" data can be loaded.')
 
+    model = prepare_dataset(reference_ds)
     reference_model = (
         model.sel(time=adapt_model_time(time_slice))
         .sel(lat=slice(*bbox["latitude"]), lon=slice(*bbox["longitude"]))
