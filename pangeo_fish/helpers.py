@@ -327,7 +327,7 @@ def plot_tag(
     return plot
 
 
-def catalog_to_dataset(yaml_url: str, chunks=None):
+def _catalog_to_dataset(yaml_url: str, chunks: dict = None):
     """Open an intake catalog.
 
     .. warning::
@@ -361,7 +361,7 @@ def catalog_to_dataset(yaml_url: str, chunks=None):
         if chunks is None:
             chunks = {"lat": -1, "lon": -1, "depth": 11, "time": 8}
 
-        thetao = _rename_lon_lat(
+        thetao = (
             cat["data"](type="TEM", chunks=chunks).to_dask().get(["thetao"])
         )  # type: xr.Dataset
         deptho = _rename_lon_lat(
@@ -473,15 +473,17 @@ def load_model(
     """
 
     if uri.endswith(".yaml"):
-        reference_ds = catalog_to_dataset(
+        reference_ds = _catalog_to_dataset(
             uri, chunks={"time": 8, "lat": -1, "lon": -1, "depth": -1}
         )
+        chunks = None
     elif uri.endswith(".parq") or uri.endswith(".parq/"):
         reference_ds = _open_parquet_model(uri)
+        chunks = {"lat": -1, "lon": -1, "depth": 11, "time": 8}
     else:
         raise ValueError('Only intake catalogs and "parqued" data can be loaded.')
 
-    model = prepare_dataset(reference_ds)
+    model = prepare_dataset(reference_ds, chunks=chunks)
     reference_model = (
         model.sel(time=adapt_model_time(time_slice))
         .sel(lat=slice(*bbox["latitude"]), lon=slice(*bbox["longitude"]))

@@ -158,8 +158,10 @@ def open_copernicus_catalog(cat, chunks=None):
     return ds
 
 
-def prepare_dataset(dataset, chunks=None, bbox=None, names=None):
-    """Prepares a dataset of a reference model.
+def prepare_dataset(
+    dataset: xr.Dataset, chunks: dict = None, bbox: dict = None, names: dict = None
+):
+    """Prepare a dataset of a reference model.
     It renames some variables (see ``names``), adds dynamic bathymetry and depth and broadcast lat(itude)/lon(gitude) coordinates.
 
     Parameters
@@ -167,8 +169,7 @@ def prepare_dataset(dataset, chunks=None, bbox=None, names=None):
     dataset : xarray.Dataset
         The pre-opened dataset of the fields data
     chunks : mapping, optional
-        The initial chunk size. Should be multiples of the on-disk chunk sizes. By
-        default, the chunksizes are ``{"lat": -1, "lon": -1, "depth": 11, "time": 8}``
+        The initial chunk size. Should be multiples of the on-disk chunk sizes.
     bbox : mapping of str to tuple of float, optional
         The spatial boundaries of the area of interest. Shoud have the keys "longitude" and "latitude".
         If provided, it checks whether there is data available within the dataset for the area.
@@ -211,9 +212,6 @@ def prepare_dataset(dataset, chunks=None, bbox=None, names=None):
                 "The studied area is not entirely included in the dataset!", UserWarning
             )
 
-    if chunks is None:
-        chunks = {"lat": -1, "lon": -1, "depth": 11, "time": 8}
-
     if names is None:
         names = {"thetao": "TEMP", "zos": "XE", "deptho": "H0"}
 
@@ -230,7 +228,8 @@ def prepare_dataset(dataset, chunks=None, bbox=None, names=None):
 
     ds = (
         dataset.chunk(chunks=chunks)
-        .rename(names)
+        if chunks is not None
+        else dataset.rename(names)
         # .assign_coords({"time": lambda ds: ds["time"].astype("datetime64[ns]")}) # useless?
         .assign(
             {
@@ -241,8 +240,7 @@ def prepare_dataset(dataset, chunks=None, bbox=None, names=None):
                     {"units": "m", "positive": "down"}
                 ),
             }
-        )
-        .pipe(broadcast_variables, {"lat": "latitude", "lon": "longitude"})  # useless?
+        ).pipe(broadcast_variables, {"lat": "latitude", "lon": "longitude"})
     )
     return ds
 
